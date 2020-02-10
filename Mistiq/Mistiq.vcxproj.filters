@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{60E1870B-CCEA-877C-5566-9E7CC16E937C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{2AEC870B-96F5-877C-1F71-9E7C8B79937C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{D8389B9D-4418-1A39-4D30-A50FB98E809A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Localization">
+      <UniqueIdentifier>{AECE6CC9-9A31-FC6D-43B7-34242FF9C7F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mistiq">
+      <UniqueIdentifier>{1C5529C3-08F7-5399-F1B1-67EDDDF2DAE9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WindowSystem">
+      <UniqueIdentifier>{A2AFCCEE-8E12-5C93-3798-944923DA2716}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ECS\Component.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\ComponentHolder.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\ECSManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\Entity.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\System.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\GUIManager.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\GUIWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Helpers\ExcelReader.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Localization\Localization.h">
+      <Filter>Localization</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mistiq\Application.h">
+      <Filter>Mistiq</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mistiq\Defines.h">
+      <Filter>Mistiq</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mstqpch.h" />
+    <ClInclude Include="src\WindowSystem\GLFWWindow.h">
+      <Filter>WindowSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowSystem\Window.h">
+      <Filter>WindowSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowSystem\imgui_impl_glfw.h">
+      <Filter>WindowSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowSystem\imgui_impl_opengl3.h">
+      <Filter>WindowSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ECS\Component.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\ComponentHolder.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\ECSManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Entity.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\System.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\GUIManager.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\GUIWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Helpers\ExcelReader.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Localization\Localization.cpp">
+      <Filter>Localization</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mistiq\Application.cpp">
+      <Filter>Mistiq</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mstqpch.cpp" />
+    <ClCompile Include="src\WindowSystem\GLFWWindow.cpp">
+      <Filter>WindowSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowSystem\Window.cpp">
+      <Filter>WindowSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowSystem\imgui_impl_glfw.cpp">
+      <Filter>WindowSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowSystem\imgui_impl_opengl3.cpp">
+      <Filter>WindowSystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
