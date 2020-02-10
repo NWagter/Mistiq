@@ -24,5 +24,6 @@ bin-int/
 
 # Executables
 *.exe
+!*/Lib/vendor/premake/premake5.exe
 *.out
 *.app
