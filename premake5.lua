@@ -12,6 +12,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Mistiq/vendor/GLFW"
 IncludeDir["Glad"] = "Mistiq/vendor/Glad"
 IncludeDir["ImGui"] = "Mistiq/vendor/imgui"
+IncludeDir["Optick"] = "Mistiq/vendor/Optick/include"
 
 group "Dependencies"
 	include "Mistiq/vendor/GLFW"
@@ -21,7 +22,7 @@ group ""
 
 project "Mistiq"
 	location "Mistiq"
-	kind "Sharedlib"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "on"
@@ -46,14 +47,16 @@ project "Mistiq"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.GLFW}/include/GLFW"
+		"%{IncludeDir.GLFW}/include/GLFW",
+		"%{IncludeDir.Optick}"
 	}
 
 	links {
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"opengl32.lib",
+		"OptickCore.lib"
 	}
 
 	postbuildcommands {
@@ -76,9 +79,17 @@ project "Mistiq"
 		defines "MSTQ_DEBUG"
 		symbols "On"
 
+		libdirs { 
+			"Mistiq/vendor/Optick/lib/x64/debug"
+		}
+
 	filter "configurations:Release"
 		defines "MSTQ_RELEASE"
 		optimize "On"
+
+		libdirs { 
+			"Mistiq/vendor/Optick/lib/x64/release"
+		}
 
 project "Sandbox"
 	location "Sandbox"
@@ -96,7 +107,8 @@ project "Sandbox"
 	}
 
 	includedirs {
-		"Mistiq/src"
+		"Mistiq/src",
+		"%{IncludeDir.Optick}"
 	}
 
 	links {

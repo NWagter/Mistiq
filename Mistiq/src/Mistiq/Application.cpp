@@ -72,6 +72,7 @@ void Mistiq::Application::Setup() {
 }
 
 void Mistiq::Application::Update() {
+    OPTICK_FRAME("ApplicationUpdate")
 	glClearColor(1, 0, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	m_GuiManager->Update(0.2f);

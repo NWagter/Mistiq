@@ -3,9 +3,10 @@
 #include "Defines.h"
 #include "WindowSystem/GLFWWindow.h"
 #include "GUI/GUIManager.h"
+#include "optick.h"
 
 namespace Mistiq{
-	class MSTQ_API Application {
+	class Application {
 	public:
 		Application();
 		virtual ~Application();
@@ -21,5 +22,3 @@ namespace Mistiq{
 		std::unique_ptr<GUIManager> m_GuiManager;
 	};
 }
-
-
