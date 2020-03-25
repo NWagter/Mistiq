@@ -59,10 +59,6 @@ project "Mistiq"
 		"OptickCore.lib"
 	}
 
-	postbuildcommands {
-		("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-	}
-
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
