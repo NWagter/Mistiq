@@ -121,11 +121,6 @@ project "Sandbox"
 			"MSTQ_PLATFORM_WINDOWS"
 		}
 
-		postbuildcommands 
-		{
-			"{COPY} %{cfg.targetdir}/../Mistiq/Mistiq.dll %{cfg.targetdir}"
-		}
-
 	filter "configurations:Debug"
 		defines "MSTQ_DEBUG"
 		symbols "On"
