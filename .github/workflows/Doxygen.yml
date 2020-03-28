@@ -22,4 +22,4 @@ jobs:
       with:
         build_dir: 'Documentation/'
       env:
-        GITHUB_PAT: ${{ secrets.9a879bacdc64cec75507ac344892d9a6d3ca801e }}  
+        GITHUB_PAT: ${{ secrets.Doxygen_Key }}  
