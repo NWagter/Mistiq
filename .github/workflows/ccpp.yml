@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: C/C++ Build Solution
 
 on:
   push:
@@ -13,12 +13,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Build
+    - name: Generate Projects
       shell: cmd
       run: |
         call GenerateProjects.bat
-    - name: setup-msbuild
+    - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.0
-    - name: Build Project
+    - name: Build sln
       run: msbuild Mistiq.sln
         
