@@ -8,11 +8,20 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@master
     - name: Doxygen Generation
       uses: mattnotmitt/doxygen-action@v1
       with:
-        doxyfile-path: ./Doxyfile
+        doxyfile-path: 'Documentation/Doxyfile'
+        
+    - name: GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v1
+      with:
+        target_branch: gh-pages
+        build_dir: public
+      env:
+        GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+        
