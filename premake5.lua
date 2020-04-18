@@ -71,6 +71,12 @@ project "Mistiq"
 			"GLFW_INCLUDE_NONE"
 		}
 
+		postbuildcommands
+		{
+			"xcopy $(SolutionDir)\\bin\\Debug-windows-x86_64\\Mistiq\\Mistiq.lib $(SolutionDir)\\bin\\Debug-windows-x86_64\\Sandbox /d /s /i",
+			"xcopy $(SolutionDir)\\Mistiq\\vendor\\Optick\\lib\\x64\\debug\\OptickCore.dll $(SolutionDir)\\bin\\Debug-windows-x86_64\\Sandbox /d /s /i"
+		}
+
 	filter "configurations:Debug"
 		defines "MSTQ_DEBUG"
 		symbols "On"
