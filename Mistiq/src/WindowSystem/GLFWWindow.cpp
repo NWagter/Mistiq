@@ -122,22 +122,29 @@ void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties) {
 
 	glEnable(GL_DEPTH_TEST);
 
-	unsigned int VBO, VAO;
+	model = GLTFParser::Load("assets/models/Bomberman.gltf");
+
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
 
 	glBindVertexArray(VAO);
-
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, model[2]->primitives[0]->vertices.size() * sizeof(Vertex), &model[2]->primitives[0]->vertices[0], GL_STATIC_DRAW);
 
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, model[2]->primitives[0]->indices.size() * sizeof(unsigned int), &model[2]->primitives[0]->indices[0], GL_STATIC_DRAW);
+
 	glEnableVertexAttribArray(0);
-	// texture coord attribute
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex));
+
+    
 	program = std::make_shared<ShaderProgram>();
 	std::shared_ptr<Shader> vertShader = std::make_shared<Shader>("assets/shaders/shader.vert", Shader::ESHADER_TYPE::SHADER_TYPE_VERTEX);
 	std::shared_ptr<Shader> fragShader = std::make_shared<Shader>("assets/shaders/shader.frag", Shader::ESHADER_TYPE::SHADER_TYPE_FRAGMENT);
@@ -147,14 +154,11 @@ void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties) {
 	program->Link();
 	program->Use();
 
-	texture1 = std::make_shared<Texture>("assets/textures/container.jpg");
+	texture1 = std::make_shared<Texture>("assets/models/Bitmaptexture-Bitmaptexture.png", true);
 	texture1->Load();
 
 	program->Use();
 	program->SetInt("texture1", 0);
-
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_Properties.m_Width / (float)m_Properties.m_Height, 0.1f, 100.0f);
-	program->setMat4("projection", projection);
 }
 
 void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
@@ -164,25 +168,25 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 
 	processInput(m_Window);
 
+	program->Use();
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture1->ID());
 
-	program->Use();
-
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_Properties.m_Width / (float)m_Properties.m_Height, 0.1f, 100.0f);
 	glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    program->setMat4("projection", projection);
 	program->setMat4("view", view);
 
-	glBindVertexArray(VAO);
-	for (unsigned int i = 0; i < 10; i++)
-	{
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, cubePositions[i]);
-		float angle = 20.0f * i;
-		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-		program->setMat4("model", model);
+	glm::mat4 modelMatrix = glm::mat4(1.0f);
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f, 0.1f, 0.1f));
+	program->setMat4("model", modelMatrix);
 
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, model[2]->primitives[0]->indices.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 
 	int x, y;
 	glfwGetWindowSize(m_Window, &x, &y);

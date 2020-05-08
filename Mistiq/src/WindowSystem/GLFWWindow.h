@@ -4,6 +4,7 @@
 #include "../../ext/GLFW/include/GLFW/glfw3.h"
 #include "../Localization/Localization.h"
 #include "../../ext/glm/glm/glm.hpp"
+#include "Graphics/ModelLoading/GLTF/GLTFParser.h"
 
 namespace Mistiq {
 	class ShaderProgram;
@@ -30,8 +31,12 @@ namespace Mistiq {
 		Localization m_Localization;
 
 		unsigned int VAO;
+		unsigned int VBO;
+		unsigned int EBO;
 
 		std::shared_ptr<ShaderProgram> program;
 		std::shared_ptr<Texture> texture1;
+
+		std::vector<std::shared_ptr<ModelData>> model;
 	};
 }
