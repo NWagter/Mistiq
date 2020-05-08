@@ -1,8 +1,8 @@
 #pragma once
 #include "Window.h"
 #include "imgui_impl_glfw.h"
-#include "../../vendor/GLFW/include/GLFW/glfw3.h"
-#include "../../vendor/imgui/imgui.h"
+#include "../../ext/GLFW/include/GLFW/glfw3.h"
+#include "../../ext/imgui/imgui.h"
 #include "../Localization/Localization.h"
 
 namespace Mistiq {

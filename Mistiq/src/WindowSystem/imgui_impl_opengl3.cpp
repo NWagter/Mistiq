@@ -64,7 +64,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "../../vendor/imgui/imgui.h"
+#include "../../ext/imgui/imgui.h"
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
@@ -98,9 +98,9 @@
 //  Modern desktop OpenGL doesn't have a standard portable header file to load OpenGL function pointers.
 //  Helper libraries are often used for this purpose! Here we are supporting a few common ones (gl3w, glew, glad).
 //  You may use another loader/header of your choice (glext, glLoadGen, etc.), or chose to manually implement your own.
-#include "../../vendor/Glad/include/glad/glad.h"
+#include "../../ext/Glad/include/glad/glad.h"
 #if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
-#include "../../vendor/GLFW/include/GLFW/glfw3.h"
+#include "../../ext/GLFW/include/GLFW/glfw3.h"
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
 #include <GL/glew.h>    // Needs to be initialized with glewInit() in user's code
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)

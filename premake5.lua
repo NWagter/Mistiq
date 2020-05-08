@@ -9,15 +9,15 @@ workspace "Mistiq"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "Mistiq/vendor/GLFW"
-IncludeDir["Glad"] = "Mistiq/vendor/Glad"
-IncludeDir["ImGui"] = "Mistiq/vendor/imgui"
-IncludeDir["Optick"] = "Mistiq/vendor/Optick/include"
+IncludeDir["GLFW"] = "Mistiq/ext/GLFW"
+IncludeDir["Glad"] = "Mistiq/ext/Glad"
+IncludeDir["ImGui"] = "Mistiq/ext/ImGui"
+IncludeDir["Optick"] = "Mistiq/ext/Optick/include"
 
 group "Dependencies"
-	include "Mistiq/vendor/GLFW"
-	include "Mistiq/vendor/Glad"
-	include "Mistiq/vendor/imgui"
+	include "Mistiq/ext/GLFW"
+	include "Mistiq/ext/Glad"
+	include "Mistiq/ext/imgui"
 group ""
 
 project "Mistiq"
@@ -73,8 +73,8 @@ project "Mistiq"
 
 		postbuildcommands
 		{
-			"xcopy $(SolutionDir)\\bin\\Debug-windows-x86_64\\Mistiq\\Mistiq.lib $(SolutionDir)\\bin\\Debug-windows-x86_64\\Sandbox /d /s /i",
-			"xcopy $(SolutionDir)\\Mistiq\\vendor\\Optick\\lib\\x64\\debug\\OptickCore.dll $(SolutionDir)\\bin\\Debug-windows-x86_64\\Sandbox /d /s /i"
+			--'"xcopy $(SolutionDir)\\bin\\Debug-windows-x86_64\\Mistiq\\Mistiq.lib $(SolutionDir)\\bin\\Debug-windows-x86_64\\Sandbox /d /s /i",
+			--"xcopy $(SolutionDir)\\Mistiq\\ext\\Optick\\lib\\x64\\debug\\OptickCore.dll $(SolutionDir)\\bin\\Debug-windows-x86_64\\Sandbox /d /s /i"
 		}
 
 	filter "configurations:Debug"
@@ -82,7 +82,7 @@ project "Mistiq"
 		symbols "On"
 
 		libdirs { 
-			"Mistiq/vendor/Optick/lib/x64/debug"
+			"Mistiq/ext/Optick/lib/x64/debug"
 		}
 
 	filter "configurations:Release"
@@ -90,7 +90,7 @@ project "Mistiq"
 		optimize "On"
 
 		libdirs { 
-			"Mistiq/vendor/Optick/lib/x64/release"
+			"Mistiq/ext/Optick/lib/x64/release"
 		}
 
 project "Sandbox"

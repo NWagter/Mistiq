@@ -3,8 +3,8 @@
 #include "GUIWindow.h"
 #include "../WindowSystem/imgui_impl_opengl3.h"
 #include "../WindowSystem/imgui_impl_glfw.h"
-#include "../../vendor/Glad/include/glad/glad.h"
-#include "../../vendor/GLFW/include/GLFW/glfw3.h"
+#include "../../ext/Glad/include/glad/glad.h"
+#include "../../ext/GLFW/include/GLFW/glfw3.h"
 
 Mistiq::GUIManager::GUIManager() {
 

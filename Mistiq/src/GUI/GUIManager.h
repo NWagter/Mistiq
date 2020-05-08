@@ -1,7 +1,7 @@
 #pragma once
 #include "Mstqpch.h"
 #include "GUIWindow.h"
-#include "../../vendor/imgui/imgui.h"
+#include "../../ext/imgui/imgui.h"
 
 namespace Mistiq {
 	class GUIManager {
