@@ -10,6 +10,12 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{1653CE33-0220-293F-2B39-17E717655ECD}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\ModelLoading">
+      <UniqueIdentifier>{343BE494-A0A7-9F8F-699B-37EDD5C6C1F7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\ModelLoading\GLTF">
+      <UniqueIdentifier>{B0188860-9C28-3431-05E2-984FF11023CA}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Graphics\Shaders">
       <UniqueIdentifier>{EF2D07CC-DB26-261E-0459-0BA3F0B0052A}</UniqueIdentifier>
     </Filter>
@@ -50,6 +56,9 @@
     </ClInclude>
     <ClInclude Include="src\GUI\GUIWindow.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\ModelLoading\GLTF\GLTFParser.h">
+      <Filter>Graphics\ModelLoading\GLTF</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Shaders\Shader.h">
       <Filter>Graphics\Shaders</Filter>
@@ -107,6 +116,9 @@
     </ClCompile>
     <ClCompile Include="src\GUI\GUIWindow.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\ModelLoading\GLTF\GLTFParser.cpp">
+      <Filter>Graphics\ModelLoading\GLTF</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Shaders\Shader.cpp">
       <Filter>Graphics\Shaders</Filter>
