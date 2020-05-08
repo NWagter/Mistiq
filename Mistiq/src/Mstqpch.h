@@ -13,3 +13,4 @@
 #include <limits>
 #include <stdexcept>
 #include <fstream>
+#include <sstream>

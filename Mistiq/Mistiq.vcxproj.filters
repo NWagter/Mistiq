@@ -7,6 +7,15 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{2AEC870B-96F5-877C-1F71-9E7C8B79937C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{1653CE33-0220-293F-2B39-17E717655ECD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Shaders">
+      <UniqueIdentifier>{EF2D07CC-DB26-261E-0459-0BA3F0B0052A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Textures">
+      <UniqueIdentifier>{A9FD1089-1514-0F1F-5E8B-9A40CAE0DFA6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Helpers">
       <UniqueIdentifier>{D8389B9D-4418-1A39-4D30-A50FB98E809A}</UniqueIdentifier>
     </Filter>
@@ -41,6 +50,15 @@
     </ClInclude>
     <ClInclude Include="src\GUI\GUIWindow.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Shaders\Shader.h">
+      <Filter>Graphics\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Shaders\ShaderProgram.h">
+      <Filter>Graphics\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Textures\Texture.h">
+      <Filter>Graphics\Textures</Filter>
     </ClInclude>
     <ClInclude Include="src\Helpers\ExcelReader.h">
       <Filter>Helpers</Filter>
@@ -89,6 +107,15 @@
     </ClCompile>
     <ClCompile Include="src\GUI\GUIWindow.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Shaders\Shader.cpp">
+      <Filter>Graphics\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Shaders\ShaderProgram.cpp">
+      <Filter>Graphics\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Textures\Texture.cpp">
+      <Filter>Graphics\Textures</Filter>
     </ClCompile>
     <ClCompile Include="src\Helpers\ExcelReader.cpp">
       <Filter>Helpers</Filter>

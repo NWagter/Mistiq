@@ -13,6 +13,8 @@ IncludeDir["GLFW"] = "Mistiq/ext/GLFW"
 IncludeDir["Glad"] = "Mistiq/ext/Glad"
 IncludeDir["ImGui"] = "Mistiq/ext/ImGui"
 IncludeDir["Optick"] = "Mistiq/ext/Optick/include"
+IncludeDir["glm"] = "Mistiq/ext/glm"
+IncludeDir["stb_image"] = "Mistiq/ext/stb_image"
 
 group "Dependencies"
 	include "Mistiq/ext/GLFW"
@@ -48,7 +50,9 @@ project "Mistiq"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.GLFW}/include/GLFW",
-		"%{IncludeDir.Optick}"
+		"%{IncludeDir.Optick}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links {
