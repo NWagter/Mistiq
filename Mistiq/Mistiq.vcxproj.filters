@@ -39,18 +39,6 @@
     <ClInclude Include="src\ECS\Component.h">
       <Filter>ECS</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\ComponentHolder.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ECS\ECSManager.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ECS\Entity.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ECS\System.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
     <ClInclude Include="src\GUI\GUIManager.h">
       <Filter>GUI</Filter>
     </ClInclude>
@@ -94,21 +82,13 @@
     <ClInclude Include="src\WindowSystem\imgui_impl_opengl3.h">
       <Filter>WindowSystem</Filter>
     </ClInclude>
+    <ClInclude Include="src\ECS\GameObject.h" />
+    <ClInclude Include="src\ECS\EntityManager.h" />
+    <ClInclude Include="src\ECS\Components\MeshRenderer.h" />
+    <ClInclude Include="src\ECS\Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Component.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\ComponentHolder.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\ECSManager.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\Entity.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ECS\System.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\GUIManager.cpp">
@@ -151,5 +131,9 @@
     <ClCompile Include="src\WindowSystem\imgui_impl_opengl3.cpp">
       <Filter>WindowSystem</Filter>
     </ClCompile>
+    <ClCompile Include="src\ECS\GameObject.cpp" />
+    <ClCompile Include="src\ECS\EntityManager.cpp" />
+    <ClCompile Include="src\ECS\Components\MeshRenderer.cpp" />
+    <ClCompile Include="src\ECS\Components\Transform.cpp" />
   </ItemGroup>
 </Project>

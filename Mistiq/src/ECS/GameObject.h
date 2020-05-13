@@ -89,7 +89,7 @@ namespace Mistiq
 	{
 		for (int i = 0; i < m_Components.size(); i++) {
 			//Try to dynamic cast input template to a Component
-			std::shared_ptr<Component> comp = dynamic_cast<std::shared_ptr<c>>(m_Components[i]);
+			std::shared_ptr<c> comp = std::dynamic_pointer_cast<c>(m_Components[i]);
 
 			//If cast is correctly casted then add to Component vector
 			if (comp) {

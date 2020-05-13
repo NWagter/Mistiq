@@ -13,9 +13,10 @@ namespace Mistiq
 	class MeshRenderer : public Mistiq::Component
 	{
 	public:
-		static const unsigned int m_Type;
+		void Start() override;
+		void Update(float a_DeltaTime) override;
 
-		unsigned int VAO;
+	    unsigned int VAO;
 		unsigned int VBO;
 		unsigned int EBO;
 
@@ -23,6 +24,14 @@ namespace Mistiq
 		std::shared_ptr<Mistiq::Texture> texture1;
 		std::shared_ptr<Mistiq::ModelData> model;
 
+	private:
+		glm::vec3 m_Position;
+		glm::vec3 m_Rotation;
+		glm::vec3 m_Scale;
+
+		friend class GLFWWindow;
+
+	public:
 		MeshRenderer(std::shared_ptr<Mistiq::ModelData> a_Model) {
 
 			model = a_Model;

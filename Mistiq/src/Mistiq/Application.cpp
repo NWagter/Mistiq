@@ -6,6 +6,8 @@
 #include "Graphics/Shaders/Shader.h"
 #include "Graphics/Shaders/ShaderProgram.h"
 #include "Graphics/Textures/Texture.h";
+#include "ECS/Components/Transform.h"
+
 
 Mistiq::Application::Application()
 {
@@ -33,6 +35,8 @@ void Mistiq::Application::Setup() {
     for(int i = 0; i < model.size(); i++)
     {
 		std::shared_ptr<GameObject> go = m_ECSManager->AddGameObject("GO");
+		std::shared_ptr<Transform> transformComponent = std::make_shared<Transform>();
+		go->AddComponent(transformComponent);
 		std::shared_ptr<MeshRenderer> meshComponent = std::make_shared<MeshRenderer>(model[i]);
 		go->AddComponent(meshComponent);
 		m_Window->allModels.push_back(meshComponent);
@@ -43,6 +47,8 @@ void Mistiq::Application::Update() {
     OPTICK_FRAME("ApplicationUpdate")
 	glClearColor(1, 0, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	m_ECSManager->Update(0.2f);
 	m_GuiManager->Update(0.2f);
 	m_Window->Update(0.2f);
 

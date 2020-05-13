@@ -48,8 +48,9 @@ void Mistiq::GameObject::Update(float a_DeltaTime)
 
 std::shared_ptr<Mistiq::Component> Mistiq::GameObject::AddComponent(std::shared_ptr<Component> a_Comp)
 {
-	//a_Comp->SetOwnerID(shared_from_this());
+	a_Comp->SetOwnerID(shared_from_this());
 	m_ComponentsIDs++;
+	m_Components.push_back(a_Comp);
 	a_Comp->SetComponentID(m_ComponentsIDs);
 	a_Comp->Awake();
 	a_Comp->Start();

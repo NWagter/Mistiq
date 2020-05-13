@@ -83,9 +83,9 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 		allModels[i]->program->setMat4("view", view);
 
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
-		modelMatrix = glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f, 0.1f, 0.1f));
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(allModels[i]->m_Position.x, allModels[i]->m_Position.y, allModels[i]->m_Position.z));
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(allModels[i]->m_Rotation.x, allModels[i]->m_Rotation.y, allModels[i]->m_Rotation.z));
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(allModels[i]->m_Scale.x, allModels[i]->m_Scale.y, allModels[i]->m_Scale.z));
 		allModels[i]->program->setMat4("model", modelMatrix);
 
 		glBindVertexArray(allModels[i]->VAO);
