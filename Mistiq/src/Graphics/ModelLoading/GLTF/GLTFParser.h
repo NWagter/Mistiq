@@ -1,8 +1,8 @@
 #pragma once
-
-#include "../../ext/tinygltf/tiny_gltf.h"
-#include "../../ext/glm/glm/glm.hpp"
-#include <memory>
+#include "../../../../ext/tinygltf/tiny_gltf.h"
+#include "../../../../ext/glm/glm/glm.hpp"
+#include "../../../../ext/glm/glm/gtc/matrix_transform.hpp"
+#include "../../../../ext/glm/glm/gtc/type_ptr.hpp"
 
 namespace Mistiq
 {

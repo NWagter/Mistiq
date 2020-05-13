@@ -1,8 +1,8 @@
 #pragma once
-#include "../../ext/Glad/include/glad//glad.h"
-#include "../../ext/glm/glm/glm.hpp"
-#include "../../ext/glm/glm/gtc/matrix_transform.hpp"
-#include "../../ext/glm/glm/gtc/type_ptr.hpp"
+#include "../../../ext/glad/include/glad/glad.h"
+#include "../ext/glm/glm/glm.hpp"
+#include "../ext/glm/glm/gtc/matrix_transform.hpp"
+#include "../ext/glm/glm/gtc/type_ptr.hpp"
 
 namespace Mistiq
 {

@@ -1,7 +1,5 @@
 #include "Mstqpch.h"
 #include "GLFWWindow.h"
-#include "include/glad/glad.h"
-#include "imgui_impl_opengl3.h"
 
 #include "Graphics/Shaders/ShaderProgram.h"
 #include "Graphics/Textures/Texture.h"
@@ -34,63 +32,6 @@ float fov = 45.0f;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-float vertices[] = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-};
-// world space positions of our cubes
-glm::vec3 cubePositions[] = {
-	glm::vec3(0.0f,  0.0f,  0.0f),
-	glm::vec3(2.0f,  5.0f, -15.0f),
-	glm::vec3(-1.5f, -2.2f, -2.5f),
-	glm::vec3(-3.8f, -2.0f, -12.3f),
-	glm::vec3(2.4f, -0.4f, -3.5f),
-	glm::vec3(-1.7f,  3.0f, -7.5f),
-	glm::vec3(1.3f, -2.0f, -2.5f),
-	glm::vec3(1.5f,  2.0f, -2.5f),
-	glm::vec3(1.5f,  0.2f, -1.5f),
-	glm::vec3(-1.3f,  1.0f, -1.5f)
-};
-
 void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties) {
 	Window::Create(a_WindowProperties);
 
@@ -121,72 +62,37 @@ void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties) {
 	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	glEnable(GL_DEPTH_TEST);
-
-	model = GLTFParser::Load("assets/models/Bomberman.gltf");
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, model[2]->primitives[0]->vertices.size() * sizeof(Vertex), &model[2]->primitives[0]->vertices[0], GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, model[2]->primitives[0]->indices.size() * sizeof(unsigned int), &model[2]->primitives[0]->indices[0], GL_STATIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
-
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex));
-
-    
-	program = std::make_shared<ShaderProgram>();
-	std::shared_ptr<Shader> vertShader = std::make_shared<Shader>("assets/shaders/shader.vert", Shader::ESHADER_TYPE::SHADER_TYPE_VERTEX);
-	std::shared_ptr<Shader> fragShader = std::make_shared<Shader>("assets/shaders/shader.frag", Shader::ESHADER_TYPE::SHADER_TYPE_FRAGMENT);
-
-	program->AddShader(vertShader);
-	program->AddShader(fragShader);
-	program->Link();
-	program->Use();
-
-	texture1 = std::make_shared<Texture>("assets/models/Bitmaptexture-Bitmaptexture.png", true);
-	texture1->Load();
-
-	program->Use();
-	program->SetInt("texture1", 0);
 }
 
 void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 	float currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
-
+    
 	processInput(m_Window);
 
-	program->Use();
+    for(int i = 0; i < allModels.size(); i++)
+    {
+		allModels[i]->program->Use();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, allModels[i]->texture1->ID());
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture1->ID());
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_Properties.m_Width / (float)m_Properties.m_Height, 0.1f, 100.0f);
+		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		allModels[i]->program->setMat4("projection", projection);
+		allModels[i]->program->setMat4("view", view);
 
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_Properties.m_Width / (float)m_Properties.m_Height, 0.1f, 100.0f);
-	glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-    program->setMat4("projection", projection);
-	program->setMat4("view", view);
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f, 0.1f, 0.1f));
+		allModels[i]->program->setMat4("model", modelMatrix);
 
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f, 0.1f, 0.1f));
-	program->setMat4("model", modelMatrix);
-
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, model[2]->primitives[0]->indices.size(), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+		glBindVertexArray(allModels[i]->VAO);
+		glDrawElements(GL_TRIANGLES, allModels[i]->model->primitives[0]->indices.size(), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0); 
+    }
+	
 
 	int x, y;
 	glfwGetWindowSize(m_Window, &x, &y);
