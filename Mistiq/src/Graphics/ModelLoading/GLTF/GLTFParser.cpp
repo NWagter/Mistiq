@@ -59,7 +59,7 @@ std::vector<std::shared_ptr<Mistiq::ModelData>> Mistiq::GLTFParser::Load(const c
 			{
 				for (size_t j = 0; j < 3; j++)
 				{
-					modelData->node.scale.push_back(0.0f);
+					modelData->node.scale.push_back(1.0f);
 				}
 			}
 
@@ -87,7 +87,7 @@ std::vector<std::shared_ptr<Mistiq::ModelData>> Mistiq::GLTFParser::Load(const c
 				{
 					for (size_t j = 0; j < 3; j++)
 					{
-						modelData->node.scale.push_back(0.0f);
+						modelData->node.scale.push_back(1.0f);
 					}
 				}
 

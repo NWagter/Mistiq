@@ -24,16 +24,28 @@ namespace Mistiq
 		std::shared_ptr<Mistiq::Texture> texture1;
 		std::shared_ptr<Mistiq::ModelData> model;
 
+		bool enabled;
+
+		glm::mat4 Model;
+
+		glm::mat4 mTranslationMatrix;
+		glm::mat4 mRotationMatrix;
+		glm::mat4 mScaleMatrix;
+
+		glm::mat4 RotationMatrixX;
+		glm::mat4 RotationMatrixY;
+		glm::mat4 RotationMatrixZ;
+
 	private:
 		glm::vec3 m_Position;
-		glm::vec3 m_Rotation;
+		glm::vec4 m_Rotation;
 		glm::vec3 m_Scale;
 
 		friend class GLFWWindow;
 
 	public:
 		MeshRenderer(std::shared_ptr<Mistiq::ModelData> a_Model) {
-
+			enabled = true;
 			model = a_Model;
 
 			glGenVertexArrays(1, &VAO);
@@ -66,11 +78,16 @@ namespace Mistiq
 			program->Link();
 			program->Use();
 
-			texture1 = std::make_shared<Mistiq::Texture>("assets/models/Bitmaptexture-Bitmaptexture.png", true);
+			texture1 = std::make_shared<Mistiq::Texture>("assets/models/Environment/rpgpp_lt_tex_a.png");
 			texture1->Load();
 
 			program->Use();
 			program->SetInt("texture1", 0);
 		}
+
+		void MakeTranslationMatrix();
+		void MakeRotationMatrix();
+		void MakeScaleMatrix();
+		void MakeModelMatrix();
 	};
 }

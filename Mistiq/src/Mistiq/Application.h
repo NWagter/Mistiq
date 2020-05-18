@@ -5,6 +5,8 @@
 #include "GUI/GUIManager.h"
 #include "optick.h"
 
+#include "../ECS/Component.h"
+
 namespace Mistiq{
 	/// @Vbrief Main application class for this application
 	class Application {
@@ -24,8 +26,13 @@ namespace Mistiq{
 
 	private:
 		/// @Vbrief Unique pointer to the window class of this application
-		std::unique_ptr<Window> m_Window;
+		std::unique_ptr<GLFWWindow> m_Window;
 		/// @Vbrief Unique pointer to the GUI manager of this application
 		std::unique_ptr<GUIManager> m_GuiManager;
+
+		std::unique_ptr<EntityManager> m_ECSManager;
+
+		float m_Count;
+		bool m_Blink;
 	};
 }

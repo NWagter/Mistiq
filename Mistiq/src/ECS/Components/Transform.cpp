@@ -3,9 +3,9 @@
 
 Mistiq::Transform::Transform()
 {
-	m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
-	m_Rotation = glm::vec3(1.0f, 0.0f, 0.0f);
-	m_Scale = glm::vec3(0.1f, 0.1f, 0.1f);
+	m_Position = glm::vec3();
+	m_Rotation = glm::vec4();
+	m_Scale = glm::vec3();
 }
 
 Mistiq::Transform::~Transform()
@@ -25,7 +25,7 @@ void Mistiq::Transform::SetPosition(glm::vec3 a_Position)
 	m_Position = a_Position;
 }
 
-void Mistiq::Transform::SetRotation(glm::vec3 a_Rotation)
+void Mistiq::Transform::SetRotation(glm::vec4 a_Rotation)
 {
 	m_Rotation = a_Rotation;
 }
@@ -40,7 +40,7 @@ glm::vec3& Mistiq::Transform::GetPosition()
 	return m_Position;
 }
 
-glm::vec3& Mistiq::Transform::GetRotation()
+glm::vec4& Mistiq::Transform::GetRotation()
 {
 	return m_Rotation;
 }

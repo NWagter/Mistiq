@@ -21,6 +21,8 @@ namespace Mistiq {
 
         bool IsOpen() override;
 
+		float GetDeltaTime() { return deltaTime; }
+
 	public:
 		GLFWwindow* m_Window;
 		bool m_IsOpen;
@@ -28,8 +30,15 @@ namespace Mistiq {
 		std::vector<std::shared_ptr<MeshRenderer>> allModels;
 
 	private:
+		float deltaTime = 0.0f;
+		float lastFrame = 0.0f;
 	    float m_Time = 0.0f;
 
 		Localization m_Localization;
+
+		std::shared_ptr<Mistiq::ShaderProgram> lighting;
+		std::shared_ptr<Mistiq::ShaderProgram> lamp;
+		unsigned int lightVAO;
+		unsigned int VBO, cubeVAO;
 	};
 }
