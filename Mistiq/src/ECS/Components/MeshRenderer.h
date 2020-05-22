@@ -70,15 +70,15 @@ namespace Mistiq
 
 
 			program = std::make_shared<Mistiq::ShaderProgram>();
-			std::shared_ptr<Mistiq::Shader> vertShader = std::make_shared<Mistiq::Shader>("assets/shaders/shader.vert", Mistiq::Shader::ESHADER_TYPE::SHADER_TYPE_VERTEX);
-			std::shared_ptr<Mistiq::Shader> fragShader = std::make_shared<Mistiq::Shader>("assets/shaders/shader.frag", Mistiq::Shader::ESHADER_TYPE::SHADER_TYPE_FRAGMENT);
+			std::shared_ptr<Mistiq::Shader> vertShader = std::make_shared<Mistiq::Shader>("assets/shaders/basic_lighting.vert", Mistiq::Shader::ESHADER_TYPE::SHADER_TYPE_VERTEX);
+			std::shared_ptr<Mistiq::Shader> fragShader = std::make_shared<Mistiq::Shader>("assets/shaders/basic_lighting.frag", Mistiq::Shader::ESHADER_TYPE::SHADER_TYPE_FRAGMENT);
 
 			program->AddShader(vertShader);
 			program->AddShader(fragShader);
 			program->Link();
 			program->Use();
 
-			texture1 = std::make_shared<Mistiq::Texture>("assets/models/Environment/rpgpp_lt_tex_a.png");
+			texture1 = std::make_shared<Mistiq::Texture>("assets/models/Environment/Blockout/BlockoutTemp.png");
 			texture1->Load();
 
 			program->Use();

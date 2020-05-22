@@ -63,7 +63,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
 glm::vec3 cameraPos = glm::vec3(805.0f, 1100.0f, -9.43f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraFront = glm::vec3(-0.633366f, -0.77384f, 0.00442083f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 glm::vec3 lightPos(805.0f, 500.0f, -9.43f);
@@ -185,18 +185,23 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 	glBindVertexArray(lightVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
-    std::cout << "Camera Pos: " << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << std::endl;
+	//std::cout << "Camera Forward: " << cameraFront.x << ", " << cameraFront.y << ", " << cameraFront.z << std::endl;
+	//std::cout << "Camera Up: " << cameraUp.x << ", " << cameraUp.y << ", " << cameraUp.z << std::endl;
 
     for(int i = 0; i < allModels.size(); i++)
     {
         if(allModels[i]->enabled)
         {
 			allModels[i]->program->Use();
+			allModels[i]->program->setVec3("objectColor", 0.721f, 0.721f, 0.721f);
+			allModels[i]->program->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, allModels[i]->texture1->ID());
 
 			allModels[i]->program->setMat4("projection", projection);
 			allModels[i]->program->setMat4("view", view);
+			allModels[i]->program->setVec3("lightPos", lightPos);
+			allModels[i]->program->setVec3("viewPos", cameraPos);
 
 			glm::mat4 modelMatrix = glm::mat4(1.0f);
 
@@ -247,7 +252,7 @@ void processInput(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
-	float cameraSpeed = 200.5 * 0.02f;
+	/*float cameraSpeed = 200.5 * 0.02f;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		cameraPos += cameraSpeed * cameraFront;
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -255,7 +260,7 @@ void processInput(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;*/
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -265,36 +270,36 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	if (firstMouse)
-	{
-		lastX = xpos;
-		lastY = ypos;
-		firstMouse = false;
-	}
+	//if (firstMouse)
+	//{
+	//	lastX = xpos;
+	//	lastY = ypos;
+	//	firstMouse = false;
+	//}
 
-	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-	lastX = xpos;
-	lastY = ypos;
+	//float xoffset = xpos - lastX;
+	//float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	//lastX = xpos;
+	//lastY = ypos;
 
-	float sensitivity = 0.1f; // change this value to your liking
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
+	//float sensitivity = 0.1f; // change this value to your liking
+	//xoffset *= sensitivity;
+	//yoffset *= sensitivity;
 
-	yaw += xoffset;
-	pitch += yoffset;
+	//yaw += xoffset;
+	//pitch += yoffset;
 
-	// make sure that when pitch is out of bounds, screen doesn't get flipped
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
+	//// make sure that when pitch is out of bounds, screen doesn't get flipped
+	//if (pitch > 89.0f)
+	//	pitch = 89.0f;
+	//if (pitch < -89.0f)
+	//	pitch = -89.0f;
 
-	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(front);
+	//glm::vec3 front;
+	//front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	//front.y = sin(glm::radians(pitch));
+	//front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	//cameraFront = glm::normalize(front);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
