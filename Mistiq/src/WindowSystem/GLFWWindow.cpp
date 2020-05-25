@@ -75,12 +75,20 @@ float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 float fov = 45.0f;
 
-void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties) {
+void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties, bool a_VSync) {
 	Window::Create(a_WindowProperties);
 
 	glfwInit();
 	m_IsOpen = true;
-	m_Window = glfwCreateWindow(m_Properties.m_Width, m_Properties.m_Height, m_Properties.m_Name, nullptr, nullptr);
+
+	m_VSync = a_VSync;
+    //GLFW her way of not capping FPS
+    if(a_VSync)
+    {
+		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_FALSE);
+    }
+
+    m_Window = glfwCreateWindow(m_Properties.m_Width, m_Properties.m_Height, m_Properties.m_Name, nullptr, nullptr);
 	glfwMakeContextCurrent(m_Window);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	glfwSetWindowUserPointer(m_Window, &m_Properties);
@@ -147,14 +155,18 @@ void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties) {
 	// note that we update the lamp's position attribute's stride to reflect the updated buffer data
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+
+	m_FPS = 0;
+	m_DeltaTime = 0;
+	m_FPSCounter = 0;
 }
 
 void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
-	float currentFrame = glfwGetTime();
-	deltaTime = currentFrame - lastFrame;
-	lastFrame = currentFrame;
-	time += a_DeltaTime;
 	processInput(m_Window);
+
+	m_FPSCounter++;
+	m_DeltaTime += a_DeltaTime;
+
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	lighting->Use();
@@ -216,8 +228,24 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 	m_Properties.m_Width = x;
 	m_Properties.m_Height = y;
 
-	glfwSwapBuffers(m_Window);
+    if(m_VSync)
+    {
+		glFlush();
+    }
+	else
+	{
+		glfwSwapBuffers(m_Window);
+	}
+
 	glfwPollEvents();
+
+    if(m_DeltaTime >= 1.0f)
+    {
+		std::cout << "FPS: " << m_FPSCounter << std::endl;
+		m_DeltaTime = 0;
+		m_FPS = m_FPSCounter;
+		m_FPSCounter = 0;
+    }
 }
 
 void Mistiq::GLFWWindow::Destroy() {

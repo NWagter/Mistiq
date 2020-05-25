@@ -18,7 +18,7 @@ void Mistiq::GUIManager::Init() {
     //Setup all GuiWindows
 }
 
-void Mistiq::GUIManager::Update(float a_DeltaTime) {
+void Mistiq::GUIManager::Update(float a_DeltaTime, int a_FPS) {
 	ImGuiIO& io = ImGui::GetIO();
 	io.DisplaySize = ImVec2(1280, 720);
 
@@ -33,6 +33,7 @@ void Mistiq::GUIManager::Update(float a_DeltaTime) {
     //Drawing static none GUI windows first
 	//ImGui::ShowDemoWindow();
 	DrawMenuBar();
+	DrawDebugRenderer(a_DeltaTime, a_FPS);
 
     //Update all GuiWindows
     for (int i = 0; i < m_GuiWindows.size(); i++) {
@@ -44,7 +45,6 @@ void Mistiq::GUIManager::Update(float a_DeltaTime) {
 }
 
 void Mistiq::GUIManager::DrawMenuBar() {
-	//ImGui::Begin("Dear ImGui Demo", false, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
@@ -71,5 +71,17 @@ void Mistiq::GUIManager::DrawMenuBar() {
 		ImGui::EndMenuBar();
 	}
 
+	ImGui::End();
+}
+
+void Mistiq::GUIManager::DrawDebugRenderer(float a_DeltaTime, int a_FPS)
+{
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Debug", false);
+	ImGui::PopStyleVar();
+	ImGui::Text("Delatime = %f", a_DeltaTime);
+	ImGui::Text("FPS = %i", a_FPS);
 	ImGui::End();
 }

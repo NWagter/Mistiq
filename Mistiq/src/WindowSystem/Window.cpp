@@ -9,7 +9,7 @@ Mistiq::Window::~Window() {
 
 }
 
-void Mistiq::Window::Create(WindowProperties a_WindowProperties) {
+void Mistiq::Window::Create(WindowProperties a_WindowProperties, bool a_VSync) {
 	m_Properties = a_WindowProperties;
 }
 

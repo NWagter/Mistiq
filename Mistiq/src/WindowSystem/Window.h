@@ -18,7 +18,7 @@ namespace Mistiq {
 		Window();
 		virtual ~Window();
 
-		virtual void Create(WindowProperties a_WindowProperties = WindowProperties());
+		virtual void Create(WindowProperties a_WindowProperties = WindowProperties(), bool a_VSync = false);
 		virtual void Update(float a_DeltaTime);
 		virtual void Destroy();
 

@@ -36,15 +36,19 @@ void Mistiq::Application::Setup() {
 }
 
 void Mistiq::Application::Update() {
-    OPTICK_FRAME("ApplicationUpdate")
+	OPTICK_FRAME("ApplicationUpdate");
+
+	float deltaTime = m_Timer.GetTimeAs();
+	m_Timer.Reset();
+
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	m_ECSManager->Update(0.2f);
-	m_GuiManager->Update(0.2f);
-	m_Window->Update(0.2f);
+	m_FPS = m_Window->m_FPS;
 
-	m_Count += m_Window->GetDeltaTime();
+	m_ECSManager->Update(deltaTime);
+	m_GuiManager->Update(deltaTime, m_FPS);
+	m_Window->Update(deltaTime);
 }
 
 void Mistiq::Application::Clean() {

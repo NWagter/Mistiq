@@ -10,10 +10,11 @@ namespace Mistiq {
 		~GUIManager();
 
 		void Init();
-		void Update(float a_DeltaTime);
+		void Update(float a_DeltaTime, int a_FPS);
 
         ///Draw none static GUI windows
 		void DrawMenuBar();
+		void DrawDebugRenderer(float a_DeltaTime, int a_FPS);
 
 	private:
 		float m_Time = 0.0f;

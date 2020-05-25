@@ -7,6 +7,7 @@
 
 #include "../ECS/Component.h"
 #include "Input/Input.h"
+#include "../Helpers/Timer.h"
 
 namespace Mistiq{
 	/// @Vbrief Main application class for this application
@@ -35,7 +36,7 @@ namespace Mistiq{
 
 		std::unique_ptr<Input> m_Input;
 
-		float m_Count;
-		bool m_Blink;
+		Timer m_Timer;
+		int m_FPS;
 	};
 }
