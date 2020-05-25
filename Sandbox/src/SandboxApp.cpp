@@ -23,8 +23,8 @@ void SandboxApp::Setup()
 		std::shared_ptr<Mistiq::Transform> transformComponent = std::make_shared<Mistiq::Transform>();
 		go->AddComponent(transformComponent);
 
-		transformComponent->SetPosition(glm::vec3(model[i]->node.translation[0], model[i]->node.translation[2] * -1, model[i]->node.translation[1]));
-		transformComponent->SetRotation(glm::vec4(model[i]->node.rotation[0], model[i]->node.rotation[1], model[i]->node.rotation[2], 1.0f));
+		transformComponent->SetTranslation(glm::vec3(model[i]->node.translation[0], model[i]->node.translation[2] * -1, model[i]->node.translation[1]));
+		transformComponent->SetRotation(glm::vec4(90 + model[i]->node.rotation[0], model[i]->node.rotation[1], model[i]->node.rotation[2], 1.0f));
 		transformComponent->SetScale(glm::vec3(model[i]->node.scale[0], model[i]->node.scale[1], model[i]->node.scale[2]));
 
 		std::shared_ptr<Mistiq::MeshRenderer> meshComponent = std::make_shared<Mistiq::MeshRenderer>(model[i]);
@@ -45,7 +45,7 @@ void SandboxApp::Setup()
 		std::shared_ptr<Mistiq::Transform> transformComponent = std::make_shared<Mistiq::Transform>();
 		bombermanGo->AddComponent(transformComponent);
 
-		transformComponent->SetPosition(glm::vec3(-230.0f, 0, -230.0f));
+		transformComponent->SetTranslation(glm::vec3(-230.0f, 0, -230.0f));
 		transformComponent->SetRotation(glm::vec4(bomberman[i]->node.rotation[0], bomberman[i]->node.rotation[1], bomberman[i]->node.rotation[2], 1.0f));
 		transformComponent->SetScale(glm::vec3(4, 4, 4));
 
@@ -64,40 +64,44 @@ void SandboxApp::Update()
     {
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			m_Player[i]->GetComponent<Mistiq::Transform>()->SetPosition(glm::vec3(
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().x, 
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().y, 
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().z + 1));
+			m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x, 
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y, 
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z + 1));
+			m_Player[i]->GetComponent<Mistiq::Transform>()->SetRotation(glm::vec4(90, 0, 0, 0));
 		}
     }
 	if (m_Input->KeyPressed(GLFW_KEY_D))
 	{
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			m_Player[i]->GetComponent<Mistiq::Transform>()->SetPosition(glm::vec3(
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().x,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().y,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().z - 1));
+			m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x,
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z - 1));
+			m_Player[i]->GetComponent<Mistiq::Transform>()->SetRotation(glm::vec4(90, 0, 180, 0));
 		}
 	}
 	if (m_Input->KeyPressed(GLFW_KEY_W))
 	{
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			m_Player[i]->GetComponent<Mistiq::Transform>()->SetPosition(glm::vec3(
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().x - 1,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().y,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().z));
+			m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x - 1,
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z));
+			m_Player[i]->GetComponent<Mistiq::Transform>()->SetRotation(glm::vec4(90, 0, 90, 0));
 		}
 	}
 	if (m_Input->KeyPressed(GLFW_KEY_S))
 	{
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			m_Player[i]->GetComponent<Mistiq::Transform>()->SetPosition(glm::vec3(
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().x + 1,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().y,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetPosition().z));
+			m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x + 1,
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
+				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z));
+			m_Player[i]->GetComponent<Mistiq::Transform>()->SetRotation(glm::vec4(90, 0, 270, 0));
 		}
 	}
 }

@@ -40,5 +40,7 @@ namespace Mistiq {
 		std::shared_ptr<Mistiq::ShaderProgram> lamp;
 		unsigned int lightVAO;
 		unsigned int VBO, cubeVAO;
+
+		float time = 0.0f;
 	};
 }

@@ -27,17 +27,10 @@ namespace Mistiq
 		bool enabled;
 
 		glm::mat4 Model;
-
-		glm::mat4 mTranslationMatrix;
-		glm::mat4 mRotationMatrix;
-		glm::mat4 mScaleMatrix;
-
-		glm::mat4 RotationMatrixX;
-		glm::mat4 RotationMatrixY;
-		glm::mat4 RotationMatrixZ;
+		glm::mat4 Model2;
 
 	private:
-		glm::vec3 m_Position;
+		glm::vec3 m_Translation;
 		glm::vec4 m_Rotation;
 		glm::vec3 m_Scale;
 
@@ -85,9 +78,6 @@ namespace Mistiq
 			program->SetInt("texture1", 0);
 		}
 
-		void MakeTranslationMatrix();
-		void MakeRotationMatrix();
-		void MakeScaleMatrix();
-		void MakeModelMatrix();
+		glm::mat4 GetModel();
 	};
 }

@@ -13,17 +13,26 @@ namespace Mistiq
 		void Start() override;
 		void Update(float a_DeltaTime) override;
 
-		void SetPosition(glm::vec3 a_Position);
+		void SetTranslation(glm::vec3 a_Position);
 		void SetRotation(glm::vec4 a_Rotation);
 		void SetScale(glm::vec3 a_Scale);
 
-		glm::vec3& GetPosition();
+		glm::vec3& GetTranslation();
 		glm::vec4& GetRotation();
 		glm::vec3& GetScale();
 
+		glm::mat4 GetModelMatrix();
+
 	private:
-		glm::vec3 m_Position;
+		void SetTranslationMatrix();
+		void SetRotationMatrix();
+		void SetScaleMatrix();
+
+	private:
+		glm::vec3 m_Translation;
 		glm::vec4 m_Rotation;
 		glm::vec3 m_Scale;
+
+		glm::mat4 m_Model;
 	};
 }

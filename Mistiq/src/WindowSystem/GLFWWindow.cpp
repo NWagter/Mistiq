@@ -153,7 +153,7 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 	float currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
-    
+	time += a_DeltaTime;
 	processInput(m_Window);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -203,20 +203,7 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 			allModels[i]->program->setVec3("lightPos", lightPos);
 			allModels[i]->program->setVec3("viewPos", cameraPos);
 
-			glm::mat4 modelMatrix = glm::mat4(1.0f);
-
-			/*allModels[i]->MakeTranslationMatrix();
-			allModels[i]->MakeRotationMatrix();
-			allModels[i]->MakeScaleMatrix();
-			allModels[i]->MakeModelMatrix();*/
-
-			modelMatrix = glm::translate(modelMatrix, glm::vec3(allModels[i]->m_Position.x, allModels[i]->m_Position.y, allModels[i]->m_Position.z));
-
-			modelMatrix = glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-			modelMatrix = glm::scale(modelMatrix, glm::vec3(allModels[i]->m_Scale.x, allModels[i]->m_Scale.y, allModels[i]->m_Scale.z));
-
-			allModels[i]->program->setMat4("model", modelMatrix);
+			allModels[i]->program->setMat4("model", allModels[i]->GetModel());
 
 			glBindVertexArray(allModels[i]->VAO);
 			glDrawElements(GL_TRIANGLES, allModels[i]->model->primitives[0]->indices.size(), GL_UNSIGNED_INT, 0);

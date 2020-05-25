@@ -20,7 +20,7 @@ Mistiq::Grid::Grid(unsigned a_Width, unsigned a_Height, SandboxApp* app)
 				std::shared_ptr<Mistiq::Transform> transformComponent = std::make_shared<Mistiq::Transform>();
 				go->AddComponent(transformComponent);
 
-				transformComponent->SetPosition(glm::vec3(-230.0f + x * scale, 50, -230.0f + y * scale));
+				transformComponent->SetTranslation(glm::vec3(-230.0f + x * scale, 50, -230.0f + y * scale));
 				transformComponent->SetRotation(glm::vec4(model[i]->node.rotation[0], model[i]->node.rotation[1], model[i]->node.rotation[2], 1.0f));
 				transformComponent->SetScale(glm::vec3(4, 4, 4));
 
