@@ -5,7 +5,7 @@
 #include "Graphics/ModelLoading/GLTF/GLTFParser.h"
 #include "Graphics/Shaders/Shader.h"
 #include "Graphics/Shaders/ShaderProgram.h"
-#include "Graphics/Textures/Texture.h";
+#include "Graphics/Textures/Texture.h"
 #include "ECS/Components/Transform.h"
 
 
