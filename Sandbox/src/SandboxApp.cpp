@@ -64,10 +64,13 @@ void SandboxApp::Update()
     {
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x, 
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y, 
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z + 1));
+			if (m_Player[0]->GetComponent<Mistiq::Transform>()->GetTranslation().z < 230)
+			{
+				m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x,
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z + 1));
+			}
 			m_Player[i]->GetComponent<Mistiq::Transform>()->SetRotation(glm::vec4(90, 0, 0, 0));
 		}
     }
@@ -75,21 +78,28 @@ void SandboxApp::Update()
 	{
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z - 1));
+            if(m_Player[0]->GetComponent<Mistiq::Transform>()->GetTranslation().z > -230)
+            {
+				m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x,
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z - 1));
+			}
 			m_Player[i]->GetComponent<Mistiq::Transform>()->SetRotation(glm::vec4(90, 0, 180, 0));
 		}
+			
 	}
 	if (m_Input->KeyPressed(GLFW_KEY_W))
 	{
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x - 1,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z));
+            if(m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x > -230.0f)
+            {
+				m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x - 1,
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z));
+            }
 			m_Player[i]->GetComponent<Mistiq::Transform>()->SetRotation(glm::vec4(90, 0, 90, 0));
 		}
 	}
@@ -97,10 +107,14 @@ void SandboxApp::Update()
 	{
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x + 1,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
-				m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z));
+			if (m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x < 230.0f)
+			{
+				m_Player[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().x + 1,
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().y,
+					m_Player[i]->GetComponent<Mistiq::Transform>()->GetTranslation().z));
+			}
+			
 			m_Player[i]->GetComponent<Mistiq::Transform>()->SetRotation(glm::vec4(90, 0, 270, 0));
 		}
 	}
