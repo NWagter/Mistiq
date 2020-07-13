@@ -1,6 +1,6 @@
 #include "SandboxApp.h"
 #include "ECS/Components/Transform.h"
-#include "../Grid.h"
+#include "Grid.h"
 
 SandboxApp::SandboxApp()
 {
