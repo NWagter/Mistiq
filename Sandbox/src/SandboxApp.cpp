@@ -2,6 +2,8 @@
 #include "ECS/Components/Transform.h"
 #include "Grid.h"
 
+#include "Graphics/ModelLoading/ModelLoader.h"
+
 SandboxApp::SandboxApp()
 {
 }
@@ -14,45 +16,29 @@ void SandboxApp::Setup()
 {
 	Mistiq::Application::Setup();
 
-#pragma region Loading environment
-	std::vector<std::shared_ptr<Mistiq::ModelData>> model = Mistiq::GLTFParser::Load("assets/models/Environment/Blockout/Blockout2.gltf");
+    //Loading environment
+	std::vector<std::shared_ptr<Mistiq::GameObject>> gameObjects = Mistiq::ModelLoader::InstantiateMultiple("assets/models/Environment/Blockout/Blockout2.gltf");
 
-	for (int i = 0; i < model.size(); i++)
+	for (int i = 0; i < gameObjects.size(); ++i)
 	{
-		std::shared_ptr<Mistiq::GameObject> go = m_ECSManager->AddGameObject(model[i]->name);
-		std::shared_ptr<Mistiq::Transform> transformComponent = std::make_shared<Mistiq::Transform>();
-		go->AddComponent(transformComponent);
-
-		transformComponent->SetTranslation(glm::vec3(model[i]->node.translation[0], model[i]->node.translation[2] * -1, model[i]->node.translation[1]));
-		transformComponent->SetRotation(glm::vec4(90 + model[i]->node.rotation[0], model[i]->node.rotation[1], model[i]->node.rotation[2], 1.0f));
-		transformComponent->SetScale(glm::vec3(model[i]->node.scale[0], model[i]->node.scale[1], model[i]->node.scale[2]));
-
-		std::shared_ptr<Mistiq::MeshRenderer> meshComponent = std::make_shared<Mistiq::MeshRenderer>(model[i]);
-		go->AddComponent(meshComponent);
-		m_Window->allModels.push_back(meshComponent);
+		m_Window->allModels.push_back(gameObjects[i]->GetComponent<Mistiq::MeshRenderer>());
 	}
-#pragma endregion
 
+    //Loading grid manager
 	std::shared_ptr<Mistiq::GameObject> go = m_ECSManager->AddGameObject("GridManager");
 	std::shared_ptr<Mistiq::Grid> gridComponent = std::make_shared<Mistiq::Grid>(13, 13, this);
 	go->AddComponent(gridComponent);
 
-	std::vector<std::shared_ptr<Mistiq::ModelData>> bomberman = Mistiq::GLTFParser::Load("assets/models/Bomberman.gltf");
+	//Loading Bomberman character
+	std::vector<std::shared_ptr<Mistiq::GameObject>> bomberman = Mistiq::ModelLoader::InstantiateMultiple("assets/models/Bomberman.gltf");
 
 	for (int i = 0; i < bomberman.size(); i++)
 	{
-		std::shared_ptr<Mistiq::GameObject> bombermanGo = m_ECSManager->AddGameObject(bomberman[i]->name);
-		std::shared_ptr<Mistiq::Transform> transformComponent = std::make_shared<Mistiq::Transform>();
-		bombermanGo->AddComponent(transformComponent);
+		bomberman[i]->GetComponent<Mistiq::Transform>()->SetTranslation(glm::vec3(-230.0f, 0, -230.0f));
+		bomberman[i]->GetComponent<Mistiq::Transform>()->SetScale(glm::vec3(4, 4, 4));
 
-		transformComponent->SetTranslation(glm::vec3(-230.0f, 0, -230.0f));
-		transformComponent->SetRotation(glm::vec4(bomberman[i]->node.rotation[0], bomberman[i]->node.rotation[1], bomberman[i]->node.rotation[2], 1.0f));
-		transformComponent->SetScale(glm::vec3(4, 4, 4));
-
-		std::shared_ptr<Mistiq::MeshRenderer> meshComponent = std::make_shared<Mistiq::MeshRenderer>(bomberman[i]);
-		bombermanGo->AddComponent(meshComponent);
-		m_Window->allModels.push_back(meshComponent);
-		m_Player.push_back(bombermanGo);
+		m_Window->allModels.push_back(bomberman[i]->GetComponent<Mistiq::MeshRenderer>());
+		m_Player.push_back(bomberman[i]);
 	}
 }
 

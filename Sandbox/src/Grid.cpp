@@ -20,10 +20,9 @@ Mistiq::Grid::Grid(unsigned a_Width, unsigned a_Height, SandboxApp* app)
             //Block, spawn block 
 			else if(m_GridLayout[gridCount] == 1)
 			{
-				std::shared_ptr<Mistiq::GameObject> go = ModelLoader::Instantiate("assets/models/Environment/Props/Haystack/Haystack.gltf");
+				std::shared_ptr<Mistiq::GameObject> go = ModelLoader::InstantiateOne("assets/models/Environment/Props/Haystack/Haystack.gltf");
 
 				go->GetComponent<Transform>()->SetTranslation(glm::vec3(-230.0f + x * scale, 0, -230.0f + y * scale));
-				go->GetComponent<Transform>()->SetRotation(glm::vec4(90 + 0, 0, 0, 1.0f));
 				go->GetComponent<Transform>()->SetScale(glm::vec3(1, 1, 1));
 
 				app->m_Window->allModels.push_back(go->GetComponent<MeshRenderer>());
@@ -31,10 +30,9 @@ Mistiq::Grid::Grid(unsigned a_Width, unsigned a_Height, SandboxApp* app)
             //Destroyable, spawn destroyable
 			else if(m_GridLayout[gridCount] == 2)
 			{
-				std::shared_ptr<Mistiq::GameObject> go = ModelLoader::Instantiate("assets/models/Environment/Props/Barrel/Barrel.gltf");
+				std::shared_ptr<Mistiq::GameObject> go = ModelLoader::InstantiateOne("assets/models/Environment/Props/Barrel/Barrel.gltf");
 
 				go->GetComponent<Transform>()->SetTranslation(glm::vec3(-230.0f + x * scale, 0, -230.0f + y * scale));
-				go->GetComponent<Transform>()->SetRotation(glm::vec4(90 + 0, 0, 0, 1.0f));
 				go->GetComponent<Transform>()->SetScale(glm::vec3(1, 1, 1));
 
 				app->m_Window->allModels.push_back(go->GetComponent<MeshRenderer>());
