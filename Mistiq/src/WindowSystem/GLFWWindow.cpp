@@ -5,7 +5,9 @@
 #include "Graphics/Textures/Texture.h"
 #include "Graphics/Shaders/Shader.h"
 
-Mistiq::GLFWWindow::GLFWWindow() {
+#include "Mistiq/Application.h"
+
+Mistiq::GLFWWindow::GLFWWindow(std::shared_ptr<Application> a_Application) : m_Application(a_Application){
 	m_Localization.LoadLanguageData();
 }
 
@@ -197,28 +199,39 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 	glBindVertexArray(lightVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
-	//std::cout << "Camera Forward: " << cameraFront.x << ", " << cameraFront.y << ", " << cameraFront.z << std::endl;
-	//std::cout << "Camera Up: " << cameraUp.x << ", " << cameraUp.y << ", " << cameraUp.z << std::endl;
+	std::vector<std::shared_ptr<MeshRenderer>> meshComponents;
 
-    for(int i = 0; i < allModels.size(); i++)
+    for(int i = 0; i < Application::instance().m_ECSManager->GetGameObjects().size(); ++i)
     {
-        if(allModels[i]->enabled)
+        for(int j = 0; j < Application::instance().m_ECSManager->GetGameObjects()[i]->GetComponents().size(); ++j)
         {
-			allModels[i]->program->Use();
-			allModels[i]->program->setVec3("objectColor", 0.721f, 0.721f, 0.721f);
-			allModels[i]->program->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+			std::shared_ptr<MeshRenderer> mesh = std::dynamic_pointer_cast<MeshRenderer>(Application::instance().m_ECSManager->GetGameObjects()[i]->GetComponents()[j]);
+            if(mesh != nullptr)
+            {
+				meshComponents.push_back(mesh);
+            }
+        }
+    }
+
+    for(int i = 0; i < meshComponents.size(); i++)
+    {
+        if(meshComponents[i]->enabled)
+        {
+			meshComponents[i]->program->Use();
+			meshComponents[i]->program->setVec3("objectColor", 0.721f, 0.721f, 0.721f);
+			meshComponents[i]->program->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, allModels[i]->texture1->ID());
+			glBindTexture(GL_TEXTURE_2D, meshComponents[i]->texture1->ID());
 
-			allModels[i]->program->setMat4("projection", projection);
-			allModels[i]->program->setMat4("view", view);
-			allModels[i]->program->setVec3("lightPos", lightPos);
-			allModels[i]->program->setVec3("viewPos", cameraPos);
+			meshComponents[i]->program->setMat4("projection", projection);
+			meshComponents[i]->program->setMat4("view", view);
+			meshComponents[i]->program->setVec3("lightPos", lightPos);
+			meshComponents[i]->program->setVec3("viewPos", cameraPos);
 
-			allModels[i]->program->setMat4("model", allModels[i]->GetModel());
+			meshComponents[i]->program->setMat4("model", meshComponents[i]->GetModel());
 
-			glBindVertexArray(allModels[i]->VAO);
-			glDrawElements(GL_TRIANGLES, allModels[i]->model->primitives[0]->indices.size(), GL_UNSIGNED_INT, 0);
+			glBindVertexArray(meshComponents[i]->VAO);
+			glDrawElements(GL_TRIANGLES, meshComponents[i]->model->primitives[0]->indices.size(), GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
         }
     }

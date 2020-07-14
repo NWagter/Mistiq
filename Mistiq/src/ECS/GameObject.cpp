@@ -4,6 +4,8 @@
 #include "Component.h"
 #include <json.hpp>
 
+#include "Mistiq/Application.h"
+
 Mistiq::GameObject::GameObject()
 {
 

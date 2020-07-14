@@ -9,13 +9,11 @@
 #include "ECS/Components/Transform.h"
 
 
+Mistiq::Application* Mistiq::Application::s_Instance = nullptr;
+
 Mistiq::Application::Application()
 {
-    ///Setting up upper hierarchy engine classes
-	m_Window = std::make_unique<GLFWWindow>();
-	m_GuiManager = std::make_unique<GUIManager>();
-	m_ECSManager = std::make_unique<EntityManager>();
-	m_Input = std::make_unique<Input>();
+	s_Instance = this;
 }
 
 Mistiq::Application::~Application()
@@ -23,7 +21,14 @@ Mistiq::Application::~Application()
     
 }
 
-void Mistiq::Application::Setup() {
+void Mistiq::Application::Setup(std::shared_ptr<Application> a_Self) {
+	m_Self = a_Self;
+	///Setting up upper hierarchy engine classes
+	m_Window = std::make_unique<GLFWWindow>(m_Self);
+	m_GuiManager = std::make_unique<GUIManager>();
+	m_ECSManager = std::make_unique<EntityManager>();
+	m_Input = std::make_unique<Input>();
+
 	///Setting up window
 	WindowProperties windowProps;
 	windowProps.m_Name = "Mistiq";

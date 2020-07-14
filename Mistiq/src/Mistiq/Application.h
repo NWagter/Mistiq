@@ -13,11 +13,21 @@ namespace Mistiq{
 	/// @Vbrief Main application class for this application
 	class Application {
 	public:
+		Application(Application const&) = delete;
+		Application& operator=(Application const&) = delete;
+
+		static Application& instance()
+		{
+			return *s_Instance;
+		}
+
+	protected:
 		Application();
 		virtual ~Application();
 
+	public:
 		/// @Vbrief Sets up application
-		virtual void Setup();
+		virtual void Setup(std::shared_ptr<Application> a_Self);
 		/// @Vbrief Updates application
 		virtual void Update();
 		/// @Vbrief Cleans the application after closing
@@ -36,7 +46,13 @@ namespace Mistiq{
 
 		std::unique_ptr<Input> m_Input;
 
+		std::shared_ptr<Application> m_Self = nullptr;
+
 		Timer m_Timer;
 		int m_FPS;
+
+	protected:
+		static Application* s_Instance;
 	};
+	Application* CreateApplication();
 }

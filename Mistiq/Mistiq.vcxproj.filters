@@ -86,6 +86,9 @@
     <ClInclude Include="src\ECS\EntityManager.h" />
     <ClInclude Include="src\ECS\Components\MeshRenderer.h" />
     <ClInclude Include="src\ECS\Components\Transform.h" />
+    <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="src\Helpers\Timer.h" />
+    <ClInclude Include="src\Graphics\ModelLoading\ModelLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Component.cpp">
@@ -135,5 +138,8 @@
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\ECS\Components\MeshRenderer.cpp" />
     <ClCompile Include="src\ECS\Components\Transform.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
+    <ClCompile Include="src\Helpers\Timer.cpp" />
+    <ClCompile Include="src\Graphics\ModelLoading\ModelLoader.cpp" />
   </ItemGroup>
 </Project>

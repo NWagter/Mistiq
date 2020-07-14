@@ -4,6 +4,7 @@
 
 #include "ECS/Components/MeshRenderer.h"
 #include "ECS/Components/Transform.h"
+#include "Mistiq/Application.h"
 
 std::shared_ptr<Mistiq::GameObject> Mistiq::ModelLoader::InstantiateOne(const char* a_PathToObject)
 {
@@ -39,6 +40,9 @@ std::vector<std::shared_ptr<Mistiq::GameObject>> Mistiq::ModelLoader::BaseInstan
 		std::shared_ptr<Transform> transformComponent = std::make_shared<Mistiq::Transform>();
 		std::shared_ptr<MeshRenderer> meshComponent = std::make_shared<MeshRenderer>(models[i]);
 
+        //Set specific game object values
+		gameObjects[i]->SetName(meshComponent->model->name);
+
         //Set base transform values to the loaded in model transform values
         //Translation
 		transformComponent->SetTranslation(glm::vec3(meshComponent->model->node.translation[0], 
@@ -59,6 +63,8 @@ std::vector<std::shared_ptr<Mistiq::GameObject>> Mistiq::ModelLoader::BaseInstan
 		//Adding components
 		gameObjects[i]->AddComponent(transformComponent);
 		gameObjects[i]->AddComponent(meshComponent);
+
+		Application::instance().m_ECSManager->AddGameObject(gameObjects[i]);
     }
 
 	return gameObjects;

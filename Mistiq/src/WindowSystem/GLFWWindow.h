@@ -12,7 +12,7 @@ namespace Mistiq {
 
 	class GLFWWindow : public Window {
 	public:
-		GLFWWindow();
+		GLFWWindow(std::shared_ptr<Application> a_Application);
 		~GLFWWindow();
 
         void Create(WindowProperties a_WindowProperties, bool a_VSync = false) override;
@@ -30,6 +30,7 @@ namespace Mistiq {
 
 	private:
 		Localization m_Localization;
+		std::shared_ptr<Application> m_Application;
 
 		std::shared_ptr<Mistiq::ShaderProgram> lighting;
 		std::shared_ptr<Mistiq::ShaderProgram> lamp;

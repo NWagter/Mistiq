@@ -64,35 +64,6 @@ std::vector<std::shared_ptr<Mistiq::ModelData>> Mistiq::GLTFParser::Load(const c
 			}
 
 			hierarchy.push_back(modelData);
-
-			for (size_t j = 0; j < modelData->children.size(); j++)
-			{
-				if (modelData->children[j]->node.translation.empty())
-				{
-					for (size_t j = 0; j < 3; j++)
-					{
-						modelData->node.translation.push_back(0.0f);
-					}
-				}
-
-				if (modelData->children[j]->node.rotation.empty())
-				{
-					for (size_t j = 0; j < 3; j++)
-					{
-						modelData->node.rotation.push_back(0.0f);
-					}
-				}
-
-				if (modelData->children[j]->node.scale.empty())
-				{
-					for (size_t j = 0; j < 3; j++)
-					{
-						modelData->node.scale.push_back(1.0f);
-					}
-				}
-
-				hierarchy.push_back(modelData->children[i]);
-			}
 		}
 	}
 

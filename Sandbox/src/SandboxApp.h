@@ -3,10 +3,7 @@
 
 class SandboxApp : public Mistiq::Application {
 public:
-	SandboxApp();
-	~SandboxApp();
-
-    void Setup() override;
+    void Setup(std::shared_ptr<Mistiq::Application> a_Self) override;
     void Update() override;
     void Clean() override;
 

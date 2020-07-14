@@ -4,17 +4,9 @@
 
 #include "Graphics/ModelLoading/ModelLoader.h"
 
-SandboxApp::SandboxApp()
+void SandboxApp::Setup(std::shared_ptr<Mistiq::Application> a_Self)
 {
-}
-
-SandboxApp::~SandboxApp()
-{
-}
-
-void SandboxApp::Setup()
-{
-	Mistiq::Application::Setup();
+	Mistiq::Application::Setup(a_Self);
 
     //Loading environment
 	std::vector<std::shared_ptr<Mistiq::GameObject>> gameObjects = Mistiq::ModelLoader::InstantiateMultiple("assets/models/Environment/Blockout/Blockout2.gltf");
@@ -111,15 +103,21 @@ void SandboxApp::Clean()
 	Mistiq::Application::Clean();
 }
 
+extern Mistiq::Application* Mistiq::CreateApplication();
+
 void main()
 {
-	SandboxApp* app = new SandboxApp();
-	app->Setup();
+	Mistiq::Application* app = Mistiq::CreateApplication();
+	app->Setup(nullptr);
 
     while(app->IsOpen()) {
 		app->Update();
     }
 
 	app->Clean();
-	delete app;
+}
+
+Mistiq::Application* Mistiq::CreateApplication()
+{
+	return new SandboxApp();
 }
