@@ -16,7 +16,7 @@
 //  2019-05-29: OpenGL: Desktop GL only: Added support for large mesh (64K+ vertices), enable ImGuiBackendFlags_RendererHasVtxOffset flag.
 //  2019-04-30: OpenGL: Added support for special ImDrawCallback_ResetRenderState callback to reset render state.
 //  2019-03-29: OpenGL: Not calling glBindBuffer more than necessary in the render loop.
-//  2019-03-15: OpenGL: Added a dummy GL call + comments in ImGui_ImplOpenGL3_Init() to detect uninitialized GL function loaders early.
+//  2019-03-15: OpenGL: Added a dummy GL Call + comments in ImGui_ImplOpenGL3_Init() to detect uninitialized GL function loaders early.
 //  2019-03-03: OpenGL: Fix support for ES 2.0 (WebGL 1.0).
 //  2019-02-20: OpenGL: Fix for OSX not supporting OpenGL 4.5, we don't try to read GL_CLIP_ORIGIN even if defined by the headers/loader.
 //  2019-02-11: OpenGL: Projecting clipping rectangles correctly using draw_data->FramebufferScale to allow multi-viewports for retina display.
@@ -30,10 +30,10 @@
 //  2018-06-08: Misc: Extracted imgui_impl_opengl3.cpp/.h away from the old combined GLFW/SDL+OpenGL3 examples.
 //  2018-06-08: OpenGL: Use draw_data->DisplayPos and draw_data->DisplaySize to setup projection matrix and clipping rectangle.
 //  2018-05-25: OpenGL: Removed unnecessary backup/restore of GL_ELEMENT_ARRAY_BUFFER_BINDING since this is part of the VAO state.
-//  2018-05-14: OpenGL: Making the call to glBindSampler() optional so 3.2 context won't fail if the function is a NULL pointer.
+//  2018-05-14: OpenGL: Making the Call to glBindSampler() optional so 3.2 context won't fail if the function is a NULL pointer.
 //  2018-03-06: OpenGL: Added const char* glsl_version parameter to ImGui_ImplOpenGL3_Init() so user can override the GLSL version e.g. "#version 150".
 //  2018-02-23: OpenGL: Create the VAO in the render function so the setup can more easily be used with multiple shared GL context.
-//  2018-02-16: Misc: Obsoleted the io.RenderDrawListsFn callback and exposed ImGui_ImplSdlGL3_RenderDrawData() in the .h file so you can call it yourself.
+//  2018-02-16: Misc: Obsoleted the io.RenderDrawListsFn callback and exposed ImGui_ImplSdlGL3_RenderDrawData() in the .h file so you can Call it yourself.
 //  2018-01-07: OpenGL: Changed GLSL shader version from 330 to 150.
 //  2017-09-01: OpenGL: Save and restore current bound sampler. Save and restore current polygon mode.
 //  2017-05-01: OpenGL: Fixed save and restore of current blend func state.
@@ -150,7 +150,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
     strcpy(g_GlslVersionString, glsl_version);
     strcat(g_GlslVersionString, "\n");
 
-    // Make a dummy GL call (we don't actually need the result)
+    // Make a dummy GL Call (we don't actually need the result)
     // IF YOU GET A CRASH HERE: it probably means that you haven't initialized the OpenGL function loader used by this code.
     // Desktop OpenGL 3/4 need a function loader. See the IMGUI_IMPL_OPENGL_LOADER_xxx explanation above.
     GLint current_texture;
@@ -221,7 +221,7 @@ static void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_wid
 }
 
 // OpenGL3 Render function.
-// (this used to be set in io.RenderDrawListsFn and called by ImGui::Render(), but you can now call this directly from your main loop)
+// (this used to be set in io.RenderDrawListsFn and called by ImGui::Render(), but you can now Call this directly from your main loop)
 // Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly, in order to be able to run within any OpenGL engine that doesn't do so.
 void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
 {

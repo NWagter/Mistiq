@@ -146,7 +146,11 @@ void Mistiq::EntityManager::RemoveGameObject(std::shared_ptr<GameObject> a_Go)
 			{
 				//comp->OnRemoveComponent();
 			}
+			it->reset();
+			a_Go.reset();
+			m_GameObjects.erase(it);
 			return;
 		}
 	}
+	std::cout << std::endl;
 }

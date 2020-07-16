@@ -38,6 +38,14 @@ void SandboxApp::Update()
 {
 	Mistiq::Application::Update();
 
+    if(m_Input->KeyPressed(GLFW_KEY_T))
+    {
+		for (int i = 0; i < m_Player.size(); i++)
+		{
+			Application::instance().m_ECSManager->RemoveGameObject(m_Player[i]);
+		}
+    }
+
     if(m_Input->KeyPressed(GLFW_KEY_A))
     {
 		for (int i = 0; i < m_Player.size(); i++)

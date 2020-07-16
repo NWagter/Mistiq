@@ -5,6 +5,7 @@
 
 #include "../ECS/Components/MeshRenderer.h"
 #include "../ext/GLFW/include/GLFW/glfw3.h"
+#include "EventSystem/Event.h"
 
 namespace Mistiq {
 	class ShaderProgram;
@@ -20,6 +21,9 @@ namespace Mistiq {
         void Destroy() override;
 
         bool IsOpen() override;
+
+		void CheckDelta(float m_DeltaTime);
+		Event<void(float)> FloatEvent;
 
 	public:
 		GLFWwindow* m_Window;

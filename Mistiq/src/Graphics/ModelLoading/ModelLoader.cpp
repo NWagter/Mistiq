@@ -43,7 +43,7 @@ std::vector<std::shared_ptr<Mistiq::GameObject>> Mistiq::ModelLoader::BaseInstan
         //Set specific game object values
 		gameObjects[i]->SetName(meshComponent->model->name);
 
-        //Set base transform values to the loaded in model transform values
+        //Set Base transform values to the loaded in model transform values
         //Translation
 		transformComponent->SetTranslation(glm::vec3(meshComponent->model->node.translation[0], 
 			meshComponent->model->node.translation[2] * -1, 

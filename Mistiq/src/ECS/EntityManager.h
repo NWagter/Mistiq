@@ -45,4 +45,3 @@ namespace Mistiq
 		friend class Application;
 	};
 }
-

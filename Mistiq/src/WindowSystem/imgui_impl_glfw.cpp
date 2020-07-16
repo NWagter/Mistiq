@@ -19,13 +19,13 @@
 //  2019-05-11: Inputs: Don't filter value from character callback before calling AddInputCharacter().
 //  2019-03-12: Misc: Preserve DisplayFramebufferScale when main window is minimized.
 //  2018-11-30: Misc: Setting up io.BackendPlatformName so it can be displayed in the About Window.
-//  2018-11-07: Inputs: When installing our GLFW callbacks, we save user's previously installed ones - if any - and chain call them.
+//  2018-11-07: Inputs: When installing our GLFW callbacks, we save user's previously installed ones - if any - and chain Call them.
 //  2018-08-01: Inputs: Workaround for Emscripten which doesn't seem to handle focus related calls.
 //  2018-06-29: Inputs: Added support for the ImGuiMouseCursor_Hand cursor.
 //  2018-06-08: Misc: Extracted imgui_impl_glfw.cpp/.h away from the old combined GLFW+OpenGL/Vulkan examples.
 //  2018-03-20: Misc: Setup io.BackendFlags ImGuiBackendFlags_HasMouseCursors flag + honor ImGuiConfigFlags_NoMouseCursorChange flag.
 //  2018-02-20: Inputs: Added support for mouse cursors (ImGui::GetMouseCursor() value, passed to glfwSetCursor()).
-//  2018-02-06: Misc: Removed call to ImGui::Shutdown() which is not available from 1.60 WIP, user needs to call CreateContext/DestroyContext themselves.
+//  2018-02-06: Misc: Removed Call to ImGui::Shutdown() which is not available from 1.60 WIP, user needs to Call CreateContext/DestroyContext themselves.
 //  2018-02-06: Inputs: Added mapping for ImGuiKey_Space.
 //  2018-01-25: Inputs: Added gamepad support if ImGuiConfigFlags_NavEnableGamepad is set.
 //  2018-01-25: Inputs: Honoring the io.WantSetMousePos by repositioning the mouse (when using navigation and ImGuiConfigFlags_NavMoveMouse is set).
@@ -64,7 +64,7 @@ static double               g_Time = 0.0;
 static bool                 g_MouseJustPressed[5] = { false, false, false, false, false };
 static GLFWcursor*          g_MouseCursors[ImGuiMouseCursor_COUNT] = { 0 };
 
-// Chain GLFW callbacks: our callbacks will call the user's previously installed callbacks, if any.
+// Chain GLFW callbacks: our callbacks will Call the user's previously installed callbacks, if any.
 static GLFWmousebuttonfun   g_PrevUserCallbackMousebutton = NULL;
 static GLFWscrollfun        g_PrevUserCallbackScroll = NULL;
 static GLFWkeyfun           g_PrevUserCallbackKey = NULL;
@@ -174,7 +174,7 @@ static bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks, Glfw
     g_MouseCursors[ImGuiMouseCursor_ResizeNWSE] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);  // FIXME: GLFW doesn't have this.
     g_MouseCursors[ImGuiMouseCursor_Hand] = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
 
-    // Chain GLFW callbacks: our callbacks will call the user's previously installed callbacks, if any.
+    // Chain GLFW callbacks: our callbacks will Call the user's previously installed callbacks, if any.
     g_PrevUserCallbackMousebutton = NULL;
     g_PrevUserCallbackScroll = NULL;
     g_PrevUserCallbackKey = NULL;
@@ -306,7 +306,7 @@ static void ImGui_ImplGlfw_UpdateGamepads()
 void ImGui_ImplGlfw_NewFrame()
 {
     ImGuiIO& io = ImGui::GetIO();
-    IM_ASSERT(io.Fonts->IsBuilt() && "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer _NewFrame() function? e.g. ImGui_ImplOpenGL3_NewFrame().");
+    IM_ASSERT(io.Fonts->IsBuilt() && "Font atlas not built! It is generally built by the renderer back-end. Missing Call to renderer _NewFrame() function? e.g. ImGui_ImplOpenGL3_NewFrame().");
 
     // Setup display size (every frame to accommodate for window resizing)
     int w, h;

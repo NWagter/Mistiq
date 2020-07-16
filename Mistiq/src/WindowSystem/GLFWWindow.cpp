@@ -161,6 +161,8 @@ void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties, bool a_VSyn
 	m_FPS = 0;
 	m_DeltaTime = 0;
 	m_FPSCounter = 0;
+
+	FloatEvent += MemFunc(*this, &GLFWWindow::CheckDelta);
 }
 
 void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
@@ -258,6 +260,7 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 		m_DeltaTime = 0;
 		m_FPS = m_FPSCounter;
 		m_FPSCounter = 0;
+		FloatEvent(m_DeltaTime);
     }
 }
 
@@ -273,6 +276,11 @@ bool Mistiq::GLFWWindow::IsOpen() {
 		m_IsOpen = false;
 	}
 	return m_IsOpen;
+}
+
+void Mistiq::GLFWWindow::CheckDelta(float m_DeltaTime)
+{
+	std::cout << "Deltatime = " << m_DeltaTime << std::endl;
 }
 
 void processInput(GLFWwindow* window)

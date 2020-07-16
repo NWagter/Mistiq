@@ -163,7 +163,7 @@ std::shared_ptr<Mistiq::MaterialData> Mistiq::GLTFParser::LoadMaterialFromPrimit
 	{
 		tinygltf::Material& matProperties = a_Document.materials[a_Primitive.material];
 
-		//Setting base color
+		//Setting Base color
 		drawObjectMaterial->baseColor = glm::vec4(
 			matProperties.pbrMetallicRoughness.baseColorFactor[0],
 			matProperties.pbrMetallicRoughness.baseColorFactor[1],
