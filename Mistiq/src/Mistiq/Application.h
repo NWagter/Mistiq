@@ -5,7 +5,7 @@
 #include "GUI/GUIManager.h"
 #include "optick.h"
 
-#include "../ECS/Component.h"
+#include "ECS/ECSManager.h"
 #include "Input/Input.h"
 #include "../Helpers/Timer.h"
 
@@ -42,7 +42,7 @@ namespace Mistiq{
 		/// @Vbrief Unique pointer to the GUI manager of this application
 		std::unique_ptr<GUIManager> m_GuiManager;
 
-		std::unique_ptr<EntityManager> m_ECSManager;
+		std::unique_ptr<ECSManager> m_ECSManager;
 
 		std::unique_ptr<Input> m_Input;
 

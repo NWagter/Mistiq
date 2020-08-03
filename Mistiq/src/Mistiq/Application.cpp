@@ -6,7 +6,6 @@
 #include "Graphics/Shaders/Shader.h"
 #include "Graphics/Shaders/ShaderProgram.h"
 #include "Graphics/Textures/Texture.h"
-#include "ECS/Components/Transform.h"
 
 
 Mistiq::Application* Mistiq::Application::s_Instance = nullptr;
@@ -26,8 +25,13 @@ void Mistiq::Application::Setup(std::shared_ptr<Application> a_Self) {
 	///Setting up upper hierarchy engine classes
 	m_Window = std::make_unique<GLFWWindow>(m_Self);
 	m_GuiManager = std::make_unique<GUIManager>();
-	m_ECSManager = std::make_unique<EntityManager>();
+	m_ECSManager = std::make_unique<ECSManager>();
 	m_Input = std::make_unique<Input>();
+
+    //Hard coding component containers for now
+    //TODO: Find a way to make this component container loading dynamic
+	m_ECSManager->AddComponentContainer<Location>();
+	m_ECSManager->AddComponentContainer<Mesh>();
 
 	///Setting up window
 	WindowProperties windowProps;
@@ -51,7 +55,7 @@ void Mistiq::Application::Update() {
 
 	m_FPS = m_Window->m_FPS;
 
-	m_ECSManager->Update(deltaTime);
+	m_ECSManager->UpdateSystems(deltaTime);
 	m_GuiManager->Update(deltaTime, m_FPS);
 	m_Window->Update(deltaTime);
 }

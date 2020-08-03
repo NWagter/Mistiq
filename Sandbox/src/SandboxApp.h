@@ -8,5 +8,5 @@ public:
     void Clean() override;
 
 private:
-	std::vector<std::shared_ptr<Mistiq::GameObject>> m_Player;
+	std::vector<Mistiq::Entity> m_Player;
 };

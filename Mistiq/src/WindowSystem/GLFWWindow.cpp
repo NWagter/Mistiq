@@ -201,28 +201,22 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 	glBindVertexArray(lightVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
-	std::vector<std::shared_ptr<MeshRenderer>> meshComponents;
+	std::vector<std::shared_ptr<Mesh>> meshComponents;
 
-    for(int i = 0; i < Application::instance().m_ECSManager->GetGameObjects().size(); ++i)
+    for(int i = 0; i < Application::instance().m_ECSManager->GetComponentContainer<Mesh>()->GetComponents().size(); ++i)
     {
-        for(int j = 0; j < Application::instance().m_ECSManager->GetGameObjects()[i]->GetComponents().size(); ++j)
-        {
-			std::shared_ptr<MeshRenderer> mesh = std::dynamic_pointer_cast<MeshRenderer>(Application::instance().m_ECSManager->GetGameObjects()[i]->GetComponents()[j]);
-            if(mesh != nullptr)
-            {
-				meshComponents.push_back(mesh);
-            }
-        }
+		meshComponents.push_back(Application::instance().m_ECSManager->GetComponentContainer<Mesh>()->GetComponents()[i]);
     }
 
     for(int i = 0; i < meshComponents.size(); i++)
     {
-        if(meshComponents[i]->enabled)
+        if(meshComponents[i] != nullptr && meshComponents[i]->enabled)
         {
 			meshComponents[i]->program->Use();
 			meshComponents[i]->program->setVec3("objectColor", 0.721f, 0.721f, 0.721f);
 			meshComponents[i]->program->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-			glActiveTexture(GL_TEXTURE0);
+
+            glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, meshComponents[i]->texture1->ID());
 
 			meshComponents[i]->program->setMat4("projection", projection);
@@ -230,7 +224,7 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 			meshComponents[i]->program->setVec3("lightPos", lightPos);
 			meshComponents[i]->program->setVec3("viewPos", cameraPos);
 
-			meshComponents[i]->program->setMat4("model", meshComponents[i]->GetModel());
+			meshComponents[i]->program->setMat4("model", meshComponents[i]->Model);
 
 			glBindVertexArray(meshComponents[i]->VAO);
 			glDrawElements(GL_TRIANGLES, meshComponents[i]->model->primitives[0]->indices.size(), GL_UNSIGNED_INT, 0);

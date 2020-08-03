@@ -3,13 +3,14 @@
 #include "../Localization/Localization.h"
 #include "Graphics/ModelLoading/GLTF/GLTFParser.h"
 
-#include "../ECS/Components/MeshRenderer.h"
+#include "../ECS/Components/Components.h"
 #include "../ext/GLFW/include/GLFW/glfw3.h"
 #include "EventSystem/Event.h"
 
 namespace Mistiq {
 	class ShaderProgram;
 	class Texture;
+	class Application;
 
 	class GLFWWindow : public Window {
 	public:
@@ -29,8 +30,6 @@ namespace Mistiq {
 		GLFWwindow* m_Window;
 		bool m_IsOpen;
 		int m_FPS;
-
-		std::vector<std::shared_ptr<MeshRenderer>> allModels;
 
 	private:
 		Localization m_Localization;
