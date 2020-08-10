@@ -203,9 +203,9 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 
 	std::vector<std::shared_ptr<Mesh>> meshComponents;
 
-    for(int i = 0; i < Application::instance().m_ECSManager->GetComponentContainer<Mesh>()->GetComponents().size(); ++i)
+    for(int i = 0; i < Application::instance().m_ECSManager->GetComponents<Mesh>().size(); ++i)
     {
-		meshComponents.push_back(Application::instance().m_ECSManager->GetComponentContainer<Mesh>()->GetComponents()[i]);
+		meshComponents.push_back(Application::instance().m_ECSManager->GetComponents<Mesh>()[i]);
     }
 
     for(int i = 0; i < meshComponents.size(); i++)

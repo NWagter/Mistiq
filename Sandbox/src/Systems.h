@@ -18,10 +18,10 @@ public:
 
 	void Update() override {
 		for (auto entity : m_MatchingEntities) {
-			std::shared_ptr<GridComponent> grid = Mistiq::Application::instance().m_ECSManager->GetComponentContainer<GridComponent>()->Get(entity);
+			std::shared_ptr<GridComponent> grid = Mistiq::Application::instance().m_ECSManager->GetComponent<GridComponent>(entity);
 
-            if(!grid->enabled)
-            {
+			if (!grid->enabled)
+			{
 				grid->enabled = true;
 
 				int scale = 39;
@@ -38,18 +38,18 @@ public:
 						//Block, spawn block 
 						else if (grid->m_GridLayout[gridCount] == 1)
 						{
-                            Mistiq::Entity& go = Mistiq::ModelLoader::InstantiateOne("assets/models/Environment/Props/Haystack/Haystack.gltf");
+							Mistiq::Entity go = Mistiq::ModelLoader::InstantiateOne("assets/models/Environment/Props/Haystack/Haystack.gltf");
 
-							std::shared_ptr<Mistiq::Location> loc = Mistiq::Application::instance().m_ECSManager->GetComponentContainer<Mistiq::Location>()->Get(go);
+							std::shared_ptr<Mistiq::Location> loc = Mistiq::Application::instance().m_ECSManager->GetComponent<Mistiq::Location>(go);
 							loc->m_Translation = glm::vec3(-230.0f + x * scale, 0, -230.0f + y * scale);
 							loc->m_Scale = glm::vec3(1, 1, 1);
 						}
 						//Destroyable, spawn destroyable
 						else if (grid->m_GridLayout[gridCount] == 2)
 						{
-							Mistiq::Entity& go = Mistiq::ModelLoader::InstantiateOne("assets/models/Environment/Props/Barrel/Barrel.gltf");
+							Mistiq::Entity go = Mistiq::ModelLoader::InstantiateOne("assets/models/Environment/Props/Barrel/Barrel.gltf");
 
-							std::shared_ptr<Mistiq::Location> loc = Mistiq::Application::instance().m_ECSManager->GetComponentContainer<Mistiq::Location>()->Get(go);
+							std::shared_ptr<Mistiq::Location> loc = Mistiq::Application::instance().m_ECSManager->GetComponent<Mistiq::Location>(go);
 							loc->m_Translation = glm::vec3(-230.0f + x * scale, 0, -230.0f + y * scale);
 							loc->m_Scale = glm::vec3(1, 1, 1);
 						}
@@ -58,7 +58,7 @@ public:
 						gridCount++;
 					}
 				}
-            }
+			}
 		}
 	}
 };

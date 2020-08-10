@@ -20,9 +20,10 @@ namespace Mistiq
 		}
 
 		void Update() override {
+			std::cout << std::endl;
 			for (auto entity : m_MatchingEntities) {
-				std::shared_ptr<Mesh> mesh = Application::instance().m_ECSManager->GetComponentContainer<Mesh>()->Get(entity);
-				std::shared_ptr<Location> location = Application::instance().m_ECSManager->GetComponentContainer<Location>()->Get(entity);
+				std::shared_ptr<Mesh> mesh = Application::instance().m_ECSManager->GetComponent<Mesh>(entity);
+				std::shared_ptr<Location> location = Application::instance().m_ECSManager->GetComponent<Location>(entity);
 
                 if(!mesh->enabled)
                 {
@@ -66,7 +67,7 @@ namespace Mistiq
                 }
 
 				mesh->Model = glm::mat4(1.0f);
-                mesh->Model = glm::translate(mesh->Model, glm::vec3(location->m_Translation.x, location->m_Translation.y, location->m_Translation.z));
+				mesh->Model = glm::translate(mesh->Model, glm::vec3(location->m_Translation.x, location->m_Translation.y, location->m_Translation.z));
 				mesh->Model = glm::rotate(mesh->Model, glm::radians(location->m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
 				mesh->Model = glm::rotate(mesh->Model, glm::radians(location->m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 				mesh->Model = glm::rotate(mesh->Model, glm::radians(location->m_Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));

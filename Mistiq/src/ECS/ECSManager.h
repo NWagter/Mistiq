@@ -25,11 +25,9 @@ namespace Mistiq
 		bool RemoveComponent(Entity & entity);
 
 		template<class C = Component>
-		bool AddComponentContainer();
+		std::shared_ptr<C> GetComponent(Entity & entity);
 		template<class C = Component>
-		void RemoveComponentContainer();
-		template<class C = Component>
-		std::shared_ptr<ComponentContainer<C>> GetComponentContainer();
+		std::map<Entity, std::shared_ptr<C>> GetComponents();
 
 		/*template<class S = System, typename ...Args>
 		bool AddSystem(Args... args);*/
@@ -39,6 +37,13 @@ namespace Mistiq
 	private:
 		void RegisterEntity(Entity& entity);
 		void UnRegisterEntity(Entity& entity);
+
+		template<class C = Component>
+		std::shared_ptr<ComponentContainer<C>> AddComponentContainer();
+		template<class C = Component>
+		void RemoveComponentContainer();
+		template<class C = Component>
+		std::shared_ptr<ComponentContainer<C>> GetComponentContainer();
 
 	private:
 		std::map<Entity, std::set<unsigned int>> m_Entities;
@@ -51,8 +56,14 @@ namespace Mistiq
 	template <class C>
 	bool Mistiq::ECSManager::AddComponent(Entity& entity)
 	{
-		std::shared_ptr<ComponentContainer<C>> container = std::dynamic_pointer_cast<ComponentContainer<C>>(m_Components.at(C::s_Type));
+		std::shared_ptr<ComponentContainer<C>> container = GetComponentContainer<C>();
 		std::shared_ptr<C> component = std::make_shared<C>();
+
+        if(container == nullptr)
+        {
+			container = AddComponentContainer<C>();
+        }
+
 		container->Add(entity, component);
 		auto ent = m_Entities.find(entity);
 		ent->second.insert(C::s_Type);
@@ -63,18 +74,35 @@ namespace Mistiq
 	template <class C>
 	bool Mistiq::ECSManager::RemoveComponent(Entity& entity)
 	{
-		std::shared_ptr<ComponentContainer<C>> container = m_Components.at(C::s_Type);
+		std::shared_ptr<ComponentContainer<C>> container = std::dynamic_pointer_cast<ComponentContainer<C>>(m_Components.at(C::s_Type));
 		container->Remove(entity);
+
+		auto ent = m_Entities.find(entity);
+		ent->second.erase(C::s_Type);
 		UnRegisterEntity(entity);
 		return true;
 	}
 
-	template <class C>
-	bool Mistiq::ECSManager::AddComponentContainer()
+    template <class C>
+    std::shared_ptr<C> ECSManager::GetComponent(Entity& entity)
+    {
+		std::shared_ptr<Mistiq::ComponentContainer<C>> container = GetComponentContainer<C>();
+		return container->Get(entity);
+    }
+
+    template <class C>
+	std::map<Entity, std::shared_ptr<C>> ECSManager::GetComponents()
+    {
+		std::shared_ptr<Mistiq::ComponentContainer<C>> container = GetComponentContainer<C>();
+		return container->GetComponents();
+    }
+
+    template <class C>
+	std::shared_ptr<ComponentContainer<C>> Mistiq::ECSManager::AddComponentContainer()
 	{
 		const std::shared_ptr<ComponentContainer<C>> container = std::make_shared<ComponentContainer<C>>();
 		m_Components.insert(std::make_pair(C::s_Type, container));
-		return true;
+		return container;
 	}
 
 	template <class C>
@@ -87,8 +115,18 @@ namespace Mistiq
 	template <class C>
 	std::shared_ptr<Mistiq::ComponentContainer<C>> Mistiq::ECSManager::GetComponentContainer()
 	{
-		std::shared_ptr<BaseComponentContainer> container = m_Components.at(C::s_Type);
-		std::shared_ptr<ComponentContainer<C>> container2 = std::dynamic_pointer_cast<ComponentContainer<C>>(container);
+        if(m_Components.size() == 0)
+        {
+			return nullptr;
+        }
+		auto container = m_Components.find(C::s_Type);
+
+        if(container == m_Components.end())
+        {
+			return nullptr;
+        }
+
+		std::shared_ptr<ComponentContainer<C>> container2 = std::dynamic_pointer_cast<ComponentContainer<C>>(container->second);
 		return container2;
 	}
 

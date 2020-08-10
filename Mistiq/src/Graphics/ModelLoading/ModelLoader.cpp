@@ -5,20 +5,20 @@
 #include "Mistiq/Application.h"
 #include "ECS/Components/Components.h"
 
-Mistiq::Entity& Mistiq::ModelLoader::InstantiateOne(const char* a_PathToObject)
+Mistiq::Entity Mistiq::ModelLoader::InstantiateOne(const char* a_PathToObject)
 {
 	std::vector<Mistiq::Entity>& ents = BaseInstantiate(a_PathToObject);
 	return BaseInstantiate(a_PathToObject)[0];
 }
 
-Mistiq::Entity& Mistiq::ModelLoader::InstantiateOne(const char* a_PathToObject, glm::vec3 a_Pos)
+Mistiq::Entity Mistiq::ModelLoader::InstantiateOne(const char* a_PathToObject, glm::vec3 a_Pos)
 {
 	Entity& entity = BaseInstantiate(a_PathToObject)[0];
-	Application::instance().m_ECSManager->GetComponentContainer<Location>()->Get(entity)->m_Translation = a_Pos;
+	Application::instance().m_ECSManager->GetComponent<Location>(entity)->m_Translation = a_Pos;
 	return entity;
 }
 
-std::vector<Mistiq::Entity>& Mistiq::ModelLoader::InstantiateMultiple(const char* a_PathToObject)
+std::vector<Mistiq::Entity> Mistiq::ModelLoader::InstantiateMultiple(const char* a_PathToObject)
 {
 	return BaseInstantiate(a_PathToObject);
 }
@@ -41,9 +41,9 @@ std::vector<Mistiq::Entity> Mistiq::ModelLoader::BaseInstantiate(const char* a_P
 		Application::instance().m_ECSManager->AddComponent<Location>(entity);
 		Application::instance().m_ECSManager->AddComponent<Mesh>(entity);
 
-		std::shared_ptr<Location> locationComponent = Application::instance().m_ECSManager->GetComponentContainer<Location>()->Get(entity);
-		std::shared_ptr<Mesh> meshComponent = Application::instance().m_ECSManager->GetComponentContainer<Mesh>()->Get(entity);
-		Application::instance().m_ECSManager->GetComponentContainer<Mesh>()->Get(entity)->model = models[i];
+		std::shared_ptr<Location> locationComponent = Application::instance().m_ECSManager->GetComponent<Location>(entity);
+		std::shared_ptr<Mesh> meshComponent = Application::instance().m_ECSManager->GetComponent<Mesh>(entity);
+		Application::instance().m_ECSManager->GetComponent<Mesh>(entity)->model = models[i];
 
         //Set specific game object values
 		//gameObjects[i]->SetName(meshComponent->model->name);

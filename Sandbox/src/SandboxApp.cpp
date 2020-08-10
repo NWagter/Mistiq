@@ -7,7 +7,6 @@
 void SandboxApp::Setup(std::shared_ptr<Mistiq::Application> a_Self)
 {
 	Mistiq::Application::Setup(a_Self);
-	Application::instance().m_ECSManager->AddComponentContainer<GridComponent>();
 
     //Loading environment
 	Mistiq::ModelLoader::InstantiateMultiple("assets/models/Environment/Blockout/Blockout2.gltf");
@@ -19,12 +18,12 @@ void SandboxApp::Setup(std::shared_ptr<Mistiq::Application> a_Self)
 	Application::instance().m_ECSManager->AddSystem(gridSystem);
 
 	//Loading Bomberman character
-	std::vector<Mistiq::Entity>& bomberman = Mistiq::ModelLoader::InstantiateMultiple("assets/models/Bomberman.gltf");
+	std::vector<Mistiq::Entity> bomberman = Mistiq::ModelLoader::InstantiateMultiple("assets/models/Bomberman.gltf");
 
 	for (int i = 0; i < bomberman.size(); i++)
 	{
-		Application::instance().m_ECSManager->GetComponentContainer<Mistiq::Location>()->Get(bomberman[i])->m_Translation = glm::vec3(-230.0f, 0, -230.0f);
-		Application::instance().m_ECSManager->GetComponentContainer<Mistiq::Location>()->Get(bomberman[i])->m_Scale = glm::vec3(4, 4, 4);
+		Application::instance().m_ECSManager->GetComponent<Mistiq::Location>(bomberman[i])->m_Translation = glm::vec3(-230.0f, 0, -230.0f);
+		Application::instance().m_ECSManager->GetComponent<Mistiq::Location>(bomberman[i])->m_Scale = glm::vec3(4, 4, 4);
 		m_Player.push_back(bomberman[i]);
 	}
 
@@ -35,15 +34,15 @@ void SandboxApp::Setup(std::shared_ptr<Mistiq::Application> a_Self)
 void SandboxApp::Update()
 {
 	Mistiq::Application::Update();
-    /*
+    
     if(m_Input->KeyPressed(GLFW_KEY_T))
     {
 		for (int i = 0; i < m_Player.size(); i++)
 		{
-			Application::instance().m_ECSManager->RemoveGameObject(m_Player[i]);
+			Application::instance().m_ECSManager->RemoveComponent<Mistiq::Mesh>(m_Player[i]);
 		}
     }
-
+    /*
     if(m_Input->KeyPressed(GLFW_KEY_A))
     {
 		for (int i = 0; i < m_Player.size(); i++)

@@ -22,6 +22,14 @@ Mistiq::Entity& Mistiq::ECSManager::AddEntity()
 bool Mistiq::ECSManager::RemoveEntity(Entity& entity)
 {
 	auto it = m_Entities.find(entity);
+	
+    for(auto setIt : it->second)
+    {
+		m_Components[setIt]->Remove(entity);
+    }
+	it->second.clear();
+
+	UnRegisterEntity(entity);
 	m_Entities.erase(it);
 	return true;
 }

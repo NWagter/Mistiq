@@ -28,11 +28,6 @@ void Mistiq::Application::Setup(std::shared_ptr<Application> a_Self) {
 	m_ECSManager = std::make_unique<ECSManager>();
 	m_Input = std::make_unique<Input>();
 
-    //Hard coding component containers for now
-    //TODO: Find a way to make this component container loading dynamic
-	m_ECSManager->AddComponentContainer<Location>();
-	m_ECSManager->AddComponentContainer<Mesh>();
-
 	///Setting up window
 	WindowProperties windowProps;
 	windowProps.m_Name = "Mistiq";
