@@ -12,8 +12,8 @@ namespace Mistiq
 		virtual void Start();
 		virtual void Update();
 
-		void AddEntity(Entity& entity);
-		void RemoveEntity(Entity& entity);
+		virtual void AddEntity(Entity& entity);
+		virtual void RemoveEntity(Entity& entity);
 
 	public:
 		std::set<unsigned int> m_RequiredComponents;

@@ -112,7 +112,7 @@ void Mistiq::GLFWWindow::Create(WindowProperties a_WindowProperties, bool a_VSyn
 	glfwSetScrollCallback(m_Window, scroll_callback);
 
 	// tell GLFW to capture our mouse
-	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -201,12 +201,7 @@ void Mistiq::GLFWWindow::Update(float a_DeltaTime) {
 	glBindVertexArray(lightVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
-	std::vector<std::shared_ptr<Mesh>> meshComponents;
-
-    for(int i = 0; i < Application::instance().m_ECSManager->GetComponents<Mesh>().size(); ++i)
-    {
-		meshComponents.push_back(Application::instance().m_ECSManager->GetComponents<Mesh>()[i]);
-    }
+	auto meshComponents = Application::instance().m_ECSManager->GetComponents<Mesh>();
 
     for(int i = 0; i < meshComponents.size(); i++)
     {

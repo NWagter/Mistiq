@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "ComponentContainer.h"
 #include "System.h"
+#include "EventSystem/Event.h"
 
 #include <memory>
 
@@ -20,6 +21,8 @@ namespace Mistiq
 
 		template<class C = Component>
 		bool AddComponent(Entity& entity);
+		template<class C = Component>
+		bool AddComponent(Entity & entity, std::shared_ptr<C> component);
 
 		template<class C = Component>
 		bool RemoveComponent(Entity & entity);
@@ -71,7 +74,25 @@ namespace Mistiq
 		return true;
 	}
 
-	template <class C>
+    template <class C>
+    bool ECSManager::AddComponent(Entity& entity, std::shared_ptr<C> component)
+    {
+		std::shared_ptr<ComponentContainer<C>> container = GetComponentContainer<C>();
+
+		if (container == nullptr)
+		{
+			container = AddComponentContainer<C>();
+		}
+
+		container->Add(entity, component);
+		auto ent = m_Entities.find(entity);
+		ent->second.insert(C::s_Type);
+		RegisterEntity(entity);
+
+		return true;
+    }
+
+    template <class C>
 	bool Mistiq::ECSManager::RemoveComponent(Entity& entity)
 	{
 		std::shared_ptr<ComponentContainer<C>> container = std::dynamic_pointer_cast<ComponentContainer<C>>(m_Components.at(C::s_Type));

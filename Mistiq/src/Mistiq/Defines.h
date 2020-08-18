@@ -9,3 +9,11 @@
 #else
     #error Mistiq only supports Windows!
 #endif
+
+#ifdef _DEBUG
+    #define MSTQ_OPTICK_FRAME(o) OPTICK_FRAME(o);
+    #define MSTQ_OPTICK_EVENT(o) OPTICK_EVENT(o);
+#else
+    #define MSTQ_OPTICK_FRAME(o)
+    #define MSTQ_OPTICK_EVENT(o)
+#endif

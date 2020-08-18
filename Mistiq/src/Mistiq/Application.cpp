@@ -21,6 +21,7 @@ Mistiq::Application::~Application()
 }
 
 void Mistiq::Application::Setup(std::shared_ptr<Application> a_Self) {
+	MSTQ_OPTICK_EVENT("ApplicationSetup");
 	m_Self = a_Self;
 	///Setting up upper hierarchy engine classes
 	m_Window = std::make_unique<GLFWWindow>(m_Self);
@@ -37,10 +38,13 @@ void Mistiq::Application::Setup(std::shared_ptr<Application> a_Self) {
 
     //Setting up input
 	m_Input->SetWindow(m_Window->m_Window);
+
+    //Setting up GUI
+	m_GuiManager->Init();
 }
 
 void Mistiq::Application::Update() {
-	OPTICK_FRAME("ApplicationUpdate");
+	MSTQ_OPTICK_FRAME("ApplicationUpdate");
 
 	float deltaTime = m_Timer.GetTimeAs();
 	m_Timer.Reset();

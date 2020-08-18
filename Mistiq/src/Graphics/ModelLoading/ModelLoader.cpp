@@ -38,12 +38,10 @@ std::vector<Mistiq::Entity> Mistiq::ModelLoader::BaseInstantiate(const char* a_P
 		Entity& entity = Application::instance().m_ECSManager->AddEntity();
 		entities.push_back(entity);
 
-		Application::instance().m_ECSManager->AddComponent<Location>(entity);
-		Application::instance().m_ECSManager->AddComponent<Mesh>(entity);
+		std::shared_ptr<Location> locationComponent = std::make_shared<Location>();
+		std::shared_ptr<Mesh> meshComponent = std::make_shared<Mesh>();
 
-		std::shared_ptr<Location> locationComponent = Application::instance().m_ECSManager->GetComponent<Location>(entity);
-		std::shared_ptr<Mesh> meshComponent = Application::instance().m_ECSManager->GetComponent<Mesh>(entity);
-		Application::instance().m_ECSManager->GetComponent<Mesh>(entity)->model = models[i];
+		meshComponent->model = models[i];
 
         //Set specific game object values
 		//gameObjects[i]->SetName(meshComponent->model->name);
@@ -64,6 +62,9 @@ std::vector<Mistiq::Entity> Mistiq::ModelLoader::BaseInstantiate(const char* a_P
 		locationComponent->m_Scale = glm::vec3(meshComponent->model->node.scale[0],
 			meshComponent->model->node.scale[1],
 			meshComponent->model->node.scale[2]);
+
+		Application::instance().m_ECSManager->AddComponent<Location>(entity, locationComponent);
+		Application::instance().m_ECSManager->AddComponent<Mesh>(entity, meshComponent);
     }
 
 	return entities;

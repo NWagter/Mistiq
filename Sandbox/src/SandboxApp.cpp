@@ -7,16 +7,16 @@
 void SandboxApp::Setup(std::shared_ptr<Mistiq::Application> a_Self)
 {
 	Mistiq::Application::Setup(a_Self);
-
+	MSTQ_OPTICK_EVENT("SandboxAppSetup");
     //Loading environment
-	Mistiq::ModelLoader::InstantiateMultiple("assets/models/Environment/Blockout/Blockout2.gltf");
+	/*Mistiq::ModelLoader::InstantiateMultiple("assets/models/Environment/Blockout/Blockout2.gltf");
 
     //Loading grid manager
 	Mistiq::Entity& gridManager = m_ECSManager->AddEntity();
 	Application::instance().m_ECSManager->AddComponent<GridComponent>(gridManager);
 	std::shared_ptr<Grid> gridSystem = std::make_shared<Grid>();
 	Application::instance().m_ECSManager->AddSystem(gridSystem);
-
+	*/
 	//Loading Bomberman character
 	std::vector<Mistiq::Entity> bomberman = Mistiq::ModelLoader::InstantiateMultiple("assets/models/Bomberman.gltf");
 
@@ -26,7 +26,7 @@ void SandboxApp::Setup(std::shared_ptr<Mistiq::Application> a_Self)
 		Application::instance().m_ECSManager->GetComponent<Mistiq::Location>(bomberman[i])->m_Scale = glm::vec3(4, 4, 4);
 		m_Player.push_back(bomberman[i]);
 	}
-
+	
 	std::shared_ptr<Mistiq::MeshRenderer> renderer = std::make_shared<Mistiq::MeshRenderer>();
 	Application::instance().m_ECSManager->AddSystem(renderer);
 }
@@ -34,7 +34,6 @@ void SandboxApp::Setup(std::shared_ptr<Mistiq::Application> a_Self)
 void SandboxApp::Update()
 {
 	Mistiq::Application::Update();
-    
     if(m_Input->KeyPressed(GLFW_KEY_T))
     {
 		for (int i = 0; i < m_Player.size(); i++)
