@@ -40,11 +40,12 @@ std::vector<Mistiq::Entity> Mistiq::ModelLoader::BaseInstantiate(const char* a_P
 
 		std::shared_ptr<Location> locationComponent = std::make_shared<Location>();
 		std::shared_ptr<Mesh> meshComponent = std::make_shared<Mesh>();
+		std::shared_ptr<NameComponent> nameComponent = std::make_shared<NameComponent>();
 
 		meshComponent->model = models[i];
 
         //Set specific game object values
-		//gameObjects[i]->SetName(meshComponent->model->name);
+		nameComponent->name = meshComponent->model->name;
 
         //Set Base transform values to the loaded in model transform values
         //Translation
@@ -65,6 +66,7 @@ std::vector<Mistiq::Entity> Mistiq::ModelLoader::BaseInstantiate(const char* a_P
 
 		Application::instance().m_ECSManager->AddComponent<Location>(entity, locationComponent);
 		Application::instance().m_ECSManager->AddComponent<Mesh>(entity, meshComponent);
+		Application::instance().m_ECSManager->AddComponent<NameComponent>(entity, nameComponent);
     }
 
 	return entities;

@@ -1,11 +1,11 @@
 #pragma once
+#include "Mstqpch.h"
+
 #include "ECS/System.h"
 #include "ECS/Components/Components.h"
 
 #include "Mistiq/Application.h"
 #include "ECS/ECSManager.h"
-
-#include <set>
 
 namespace Mistiq
 {

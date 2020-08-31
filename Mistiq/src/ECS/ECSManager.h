@@ -5,8 +5,6 @@
 #include "System.h"
 #include "EventSystem/Event.h"
 
-#include <memory>
-
 namespace Mistiq
 {
 	class ECSManager final

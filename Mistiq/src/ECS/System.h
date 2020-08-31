@@ -1,6 +1,9 @@
 #pragma once
 #include "Entity.h"
 
+#include <iostream>
+#include <set>
+
 namespace Mistiq
 {
 	class System

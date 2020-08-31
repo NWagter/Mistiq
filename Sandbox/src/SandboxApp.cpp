@@ -36,10 +36,12 @@ void SandboxApp::Update()
 	Mistiq::Application::Update();
     if(m_Input->KeyPressed(GLFW_KEY_T))
     {
-		for (int i = 0; i < m_Player.size(); i++)
+		/*for (int i = 0; i < m_Player.size(); i++)
 		{
 			Application::instance().m_ECSManager->RemoveComponent<Mistiq::Mesh>(m_Player[i]);
-		}
+		}*/
+
+		m_Debugger->Log(Mistiq::LogType::Game, "Hello this is a test");
     }
     /*
     if(m_Input->KeyPressed(GLFW_KEY_A))

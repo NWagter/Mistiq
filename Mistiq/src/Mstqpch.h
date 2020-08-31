@@ -14,6 +14,8 @@
 #include <stdexcept>
 #include <fstream>
 #include <sstream>
+#include <chrono>
+#include <ctime>
 
 #include "../ext/tinygltf/tiny_gltf.h"
 

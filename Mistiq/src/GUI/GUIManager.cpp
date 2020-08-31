@@ -1,10 +1,6 @@
 #include "Mstqpch.h"
 #include "GUIManager.h"
 #include "GUIWindow.h"
-#include "../WindowSystem/imgui_impl_opengl3.h"
-#include "../WindowSystem/imgui_impl_glfw.h"
-#include "../../ext/Glad/include/glad/glad.h"
-#include "../../ext/GLFW/include/GLFW/glfw3.h"
 
 Mistiq::GUIManager::GUIManager() {
 
@@ -15,9 +11,19 @@ Mistiq::GUIManager::~GUIManager() {
 }
 
 void Mistiq::GUIManager::Init() {
-    //Setup all GuiWindows
+    //Setup docking space
 	ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+    //Setup all GuiWindows
+	m_GuiWindows.push_back(std::make_unique<GUIConsoleWindow>());
+	m_GuiWindows.push_back(std::make_unique<GUIHierarchyWindow>());
+	m_GuiWindows.push_back(std::make_unique<GUIInspectorWindow>());
+
+	//Init all GuiWindows
+	for (int i = 0; i < m_GuiWindows.size(); i++) {
+		m_GuiWindows[i]->Init();
+	}
 }
 
 void Mistiq::GUIManager::Update(float a_DeltaTime, int a_FPS) {
@@ -35,11 +41,14 @@ void Mistiq::GUIManager::Update(float a_DeltaTime, int a_FPS) {
     //Drawing static none GUI windows first
 	//ImGui::ShowDemoWindow();
 	DrawMenuBar();
-	DrawDebugRenderer(a_DeltaTime, a_FPS);
+	//DrawDebugRenderer(a_DeltaTime, a_FPS);
 
     //Update all GuiWindows
     for (int i = 0; i < m_GuiWindows.size(); i++) {
-	    
+        if(m_GuiWindows[i]->m_Open)
+        {
+			m_GuiWindows[i]->Update(a_DeltaTime);
+        }
 	}
 
 	ImGui::Render();
@@ -82,7 +91,7 @@ void Mistiq::GUIManager::DrawMenuBar() {
     {
         ImGuiViewport* viewport = ImGui::GetMainViewport();
         ImGui::SetNextWindowPos(ImVec2(0, 0));
-        ImGui::SetNextWindowSize(ImVec2(1920, 1080));
+        ImGui::SetNextWindowSize(ImVec2(1280, 720));
         ImGui::SetNextWindowViewport(viewport->ID);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -148,6 +157,15 @@ void Mistiq::GUIManager::DrawMenuBar() {
             "ImGui::DockSpace() comes with one hard constraint: it needs to be submitted _before_ any window which may be docked into it. Therefore, if you use a dock spot as the central point of your application, you'll probably want it to be part of the very first window you are submitting to imgui every frame." "\n\n"
             "(NB: because of this constraint, the implicit \"Debug\" window can not be docked into an explicit DockSpace() node, because that window is submitted as part of the NewFrame() call. An easy workaround is that you can create your own implicit \"Debug##2\" window after calling DockSpace() and leave it in the window stack for anyone to use.)"
         );
+
+		if (ImGui::BeginMenu("Windows"))
+		{
+			if (ImGui::MenuItem("Console", "", false, false))
+			{
+			    
+			}
+			ImGui::EndMenu();
+		}
 
         ImGui::EndMenuBar();
     }

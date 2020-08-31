@@ -28,12 +28,13 @@ void Mistiq::Application::Setup(std::shared_ptr<Application> a_Self) {
 	m_GuiManager = std::make_unique<GUIManager>();
 	m_ECSManager = std::make_unique<ECSManager>();
 	m_Input = std::make_unique<Input>();
+	m_Debugger = std::make_unique<Debug>();
 
 	///Setting up window
 	WindowProperties windowProps;
 	windowProps.m_Name = "Mistiq";
-	windowProps.m_Width = 1920;
-	windowProps.m_Height = 1080;
+	windowProps.m_Width = 1280;
+	windowProps.m_Height = 720;
 	m_Window->Create(windowProps);
 
     //Setting up input

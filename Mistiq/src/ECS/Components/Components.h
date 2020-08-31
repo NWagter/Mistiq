@@ -38,4 +38,11 @@ namespace Mistiq
 
 		glm::mat4 m_Model;
     };
+
+    struct NameComponent : public Component
+    {
+		static unsigned int s_Type;
+
+		std::string name;
+    };
 }

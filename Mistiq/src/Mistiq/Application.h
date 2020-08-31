@@ -8,6 +8,7 @@
 #include "ECS/ECSManager.h"
 #include "Input/Input.h"
 #include "../Helpers/Timer.h"
+#include "Helpers/Debug.h"
 
 namespace Mistiq{
 	/// @Vbrief Main application class for this application
@@ -45,6 +46,8 @@ namespace Mistiq{
 		std::unique_ptr<ECSManager> m_ECSManager;
 
 		std::unique_ptr<Input> m_Input;
+
+		std::unique_ptr<Debug> m_Debugger;
 
 		std::shared_ptr<Application> m_Self = nullptr;
 
